@@ -1,4 +1,4 @@
-﻿namespace RaceService.Api.Domain.Entities
+﻿namespace RaceService.Application.Domain.Entities
 {
     public class Race
     {
