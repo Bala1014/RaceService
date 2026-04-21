@@ -79,3 +79,6 @@ docker logs open-webui
 ```
 
 dotnet ef migrations add UpdatedTrackId  --project RaceService.Application --startup-project RaceService.Api
+
+
+# dotnet run --project /home/balagod99/Dev/RaceService/RaceService/RaceService.Api/RaceService.Api.csproj
