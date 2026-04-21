@@ -1,0 +1,202 @@
+[
+  {
+    "id": "660e8400-e29b-41d4-a716-446655440001",
+    "name": "Circuit de Monaco",
+    "location": "Monte Carlo",
+    "country": "Monaco",
+    "timeZone": "Europe/Paris",
+    "lengthInKm": 3,
+    "imageUrl": "https://example.com/monaco.jpg",
+    "bestLapTime": "01:12:00"
+  },
+  {
+    "id": "660e8400-e29b-41d4-a716-446655440002",
+    "name": "Silverstone Circuit",
+    "location": "Northamptonshire",
+    "country": "United Kingdom",
+    "timeZone": "Europe/London",
+    "lengthInKm": 5,
+    "imageUrl": "https://example.com/silverstone.jpg",
+    "bestLapTime": "01:27:00"
+  },
+  {
+    "id": "660e8400-e29b-41d4-a716-446655440003",
+    "name": "Circuit de Spa-Francorchamps",
+    "location": "Spa",
+    "country": "Belgium",
+    "timeZone": "Europe/Brussels",
+    "lengthInKm": 7,
+    "imageUrl": "https://example.com/spa.jpg",
+    "bestLapTime": "01:46:00"
+  },
+  {
+    "id": "660e8400-e29b-41d4-a716-446655440004",
+    "name": "Autodromo Nazionale di Monza",
+    "location": "Milan",
+    "country": "Italy",
+    "timeZone": "Europe/Rome",
+    "lengthInKm": 6,
+    "imageUrl": "https://example.com/monza.jpg",
+    "bestLapTime": "01:21:00"
+  },
+  {
+    "id": "660e8400-e29b-41d4-a716-446655440005",
+    "name": "Circuit Zandvoort",
+    "location": "Zandvoort",
+    "country": "Netherlands",
+    "timeZone": "Europe/Amsterdam",
+    "lengthInKm": 4,
+    "imageUrl": "https://example.com/zandvoort.jpg",
+    "bestLapTime": "01:35:00"
+  },
+  {
+    "id": "660e8400-e29b-41d4-a716-446655440006",
+    "name": "Hungaroring",
+    "location": "Budapest",
+    "country": "Hungary",
+    "timeZone": "Europe/Budapest",
+    "lengthInKm": 4,
+    "imageUrl": "https://example.com/hungaroring.jpg",
+    "bestLapTime": "01:39:00"
+  },
+  {
+    "id": "660e8400-e29b-41d4-a716-446655440007",
+    "name": "Circuit de Catalunya",
+    "location": "Barcelona",
+    "country": "Spain",
+    "timeZone": "Europe/Madrid",
+    "lengthInKm": 5,
+    "imageUrl": "https://example.com/barcelona.jpg",
+    "bestLapTime": "01:44:00"
+  },
+  {
+    "id": "660e8400-e29b-41d4-a716-446655440008",
+    "name": "Bahrain International Circuit",
+    "location": "Sakhir",
+    "country": "Bahrain",
+    "timeZone": "Asia/Bahrain",
+    "lengthInKm": 5,
+    "imageUrl": "https://example.com/bahrain.jpg",
+    "bestLapTime": "01:31:00"
+  },
+  {
+    "id": "660e8400-e29b-41d4-a716-446655440009",
+    "name": "Jeddah Corniche Circuit",
+    "location": "Jeddah",
+    "country": "Saudi Arabia",
+    "timeZone": "Asia/Riyadh",
+    "lengthInKm": 6,
+    "imageUrl": "https://example.com/jeddah.jpg",
+    "bestLapTime": "01:29:00"
+  },
+  {
+    "id": "660e8400-e29b-41d4-a716-446655440010",
+    "name": "Albert Park Circuit",
+    "location": "Melbourne",
+    "country": "Australia",
+    "timeZone": "Australia/Melbourne",
+    "lengthInKm": 6,
+    "imageUrl": "https://example.com/albert_park.jpg",
+    "bestLapTime": "01:22:00"
+  },
+  {
+    "id": "660e8400-e29b-41d4-a716-446655440011",
+    "name": "Suzuka International Racing Course",
+    "location": "Suzuka",
+    "country": "Japan",
+    "timeZone": "Asia/Tokyo",
+    "lengthInKm": 5,
+    "imageUrl": "https://example.com/suzuka.jpg",
+    "bestLapTime": "01:30:00"
+  },
+  {
+    "id": "660e8400-e29b-41d4-a716-446655440012",
+    "name": "Marina Bay Street Circuit",
+    "location": "Singapore",
+    "country": "Singapore",
+    "timeZone": "Asia/Singapore",
+    "lengthInKm": 5,
+    "imageUrl": "https://example.com/singapore.jpg",
+    "bestLapTime": "01:57:00"
+  },
+  {
+    "id": "660e8400-e29b-41d4-a716-446655440013",
+    "name": "COTA",
+    "location": "Austin",
+    "country": "United States",
+    "timeZone": "America/Chicago",
+    "lengthInKm": 5,
+    "imageUrl": "https://example.com/cota.jpg",
+    "bestLapTime": "01:36:00"
+  },
+  {
+    "id": "660e8400-e29b-41d4-a716-446655440014",
+    "name": "Circuit of the Americas",
+    "location": "Mexico City",
+    "country": "Mexico",
+    "timeZone": "America/Mexico_City",
+    "lengthInKm": 4,
+    "imageUrl": "https://example.com/mexico_city.jpg",
+    "bestLapTime": "01:17:00"
+  },
+  {
+    "id": "660e8400-e29b-41d4-a716-446655440015",
+    "name": "Interlagos",
+    "location": "S�o Paulo",
+    "country": "Brazil",
+    "timeZone": "America/Sao_Paulo",
+    "lengthInKm": 4,
+    "imageUrl": "https://example.com/interlagos.jpg",
+    "bestLapTime": "01:34:00"
+  },
+  {
+    "id": "660e8400-e29b-41d4-a716-446655440016",
+    "name": "Yas Marina Circuit",
+    "location": "Abu Dhabi",
+    "country": "United Arab Emirates",
+    "timeZone": "Asia/Dubai",
+    "lengthInKm": 5,
+    "imageUrl": "https://example.com/yas_marina.jpg",
+    "bestLapTime": "01:26:00"
+  },
+  {
+    "id": "660e8400-e29b-41d4-a716-446655440017",
+    "name": "N�rburgring",
+    "location": "N�rburg",
+    "country": "Germany",
+    "timeZone": "Europe/Berlin",
+    "lengthInKm": 5,
+    "imageUrl": "https://example.com/nurburgring.jpg",
+    "bestLapTime": "01:34:00"
+  },
+  {
+    "id": "660e8400-e29b-41d4-a716-446655440018",
+    "name": "Circuit Paul Ricard",
+    "location": "Le Castellet",
+    "country": "France",
+    "timeZone": "Europe/Paris",
+    "lengthInKm": 5,
+    "imageUrl": "https://example.com/paul_ricard.jpg",
+    "bestLapTime": "01:32:00"
+  },
+  {
+    "id": "660e8400-e29b-41d4-a716-446655440019",
+    "name": "Red Bull Ring",
+    "location": "Spielberg",
+    "country": "Austria",
+    "timeZone": "Europe/Vienna",
+    "lengthInKm": 4,
+    "imageUrl": "https://example.com/red_bull_ring.jpg",
+    "bestLapTime": "01:06:00"
+  },
+  {
+    "id": "660e8400-e29b-41d4-a716-446655440020",
+    "name": "Circuit of Baku",
+    "location": "Baku",
+    "country": "Azerbaijan",
+    "timeZone": "Asia/Baku",
+    "lengthInKm": 6,
+    "imageUrl": "https://example.com/baku.jpg",
+    "bestLapTime": "01:43:00"
+  }
+]

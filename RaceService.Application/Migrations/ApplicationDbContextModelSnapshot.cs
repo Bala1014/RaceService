@@ -96,15 +96,12 @@ namespace RaceService.Application.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("integer");
 
-                    b.Property<int>("TrackId")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("TrackId1")
+                    b.Property<Guid>("TrackId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TrackId1");
+                    b.HasIndex("TrackId");
 
                     b.ToTable("Race");
                 });
@@ -264,7 +261,7 @@ namespace RaceService.Application.Migrations
                 {
                     b.HasOne("RaceService.Application.Domain.Entities.Track", "Track")
                         .WithMany()
-                        .HasForeignKey("TrackId1")
+                        .HasForeignKey("TrackId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

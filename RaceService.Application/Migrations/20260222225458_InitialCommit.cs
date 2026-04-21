@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RaceService.Application.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialCommit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -52,8 +52,7 @@ namespace RaceService.Application.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
                     StartTimeUTC = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    TrackId1 = table.Column<Guid>(type: "uuid", nullable: false),
-                    TrackId = table.Column<int>(type: "integer", nullable: false),
+                    TrackId = table.Column<Guid>(type: "uuid", nullable: false),
                     Laps = table.Column<int>(type: "integer", nullable: false),
                     Status = table.Column<int>(type: "integer", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
@@ -62,8 +61,8 @@ namespace RaceService.Application.Migrations
                 {
                     table.PrimaryKey("PK_Race", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Race_Track_TrackId1",
-                        column: x => x.TrackId1,
+                        name: "FK_Race_Track_TrackId",
+                        column: x => x.TrackId,
                         principalTable: "Track",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -184,9 +183,9 @@ namespace RaceService.Application.Migrations
                 column: "RaceId1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Race_TrackId1",
+                name: "IX_Race_TrackId",
                 table: "Race",
-                column: "TrackId1");
+                column: "TrackId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RaceEntry_Driver1Id",
