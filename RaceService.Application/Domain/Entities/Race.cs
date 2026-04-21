@@ -6,7 +6,7 @@
         public string Name { get; set; } = string.Empty;
         public DateTime StartTimeUTC { get; set; }
         public Track Track { get; set; } 
-        public int TrackId { get; set; }
+        public Guid TrackId { get; set; }
         public int Laps { get; set; }
         public RaceStatus Status { get; set; }
         public DateTime CreatedAt { get; set; }
@@ -48,7 +48,7 @@
         public Guid Id { get;  set; }
         public Guid RaceId { get; set; }
         public string SeriesType { get; set; } = string.Empty;
-        public string CarClass { get; private set; } = string.Empty;
+        public string CarClass { get; set; } = string.Empty;
         public Driver Driver1 { get; set;  } 
         public Driver Driver2 { get; set; } 
         public Driver Driver4 { get; set; } 
