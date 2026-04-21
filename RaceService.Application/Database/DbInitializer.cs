@@ -3,7 +3,8 @@ using Microsoft.Extensions.Logging;
 using RaceService.Application.Domain.Entities;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.IO;
+using System.Linq;
 using System.Text.Json;
 
 namespace RaceService.Application.Database
@@ -17,7 +18,6 @@ namespace RaceService.Application.Database
             _context = context;
             _logger = logger;
         }
-
 
         public void Init()
         {
@@ -34,17 +34,16 @@ namespace RaceService.Application.Database
                     _logger.LogInformation("No pending migrations found. Database is up to date.");
                 }
 
-                SeedData();
+                SeedDataToDB();
             }
             catch (Exception e)
             {
                 _logger.LogError(e, "An error occurred while applying migrations.");
                 throw;
             }
-
         }
 
-        private void SeedData()
+        private void SeedDataToDB()
         {
             try
             {
@@ -55,7 +54,7 @@ namespace RaceService.Application.Database
                     return;
                 }
 
-                var seedDataPath = @"C:\Users\Bala\source\repos\RaceService\RaceService.Application\Database\SeedData";
+                var seedDataPath = GetSeedDataFolderPath();
 
                 // Seed Drivers
                 if (!_context.Driver.Any())
@@ -93,6 +92,7 @@ namespace RaceService.Application.Database
                     _context.SaveChanges();
                     _logger.LogInformation("Seeded {Count} races.", raceEntities.Count);
                 }
+
                 // Seed Race Entries
                 if (!_context.RaceEntry.Any())
                 {
@@ -151,6 +151,12 @@ namespace RaceService.Application.Database
                 throw;
             }
         }
+        private string GetSeedDataFolderPath()
+        {
+            // TODO: fix this path and make it such that it is dynamic not static
+            return "/home/balagod99/Dev/RaceService/RaceService/RaceService.Application/Database/SeedData";
+        }
+
         private List<T> LoadSeedData<T>(string filePath)
         {
             if (!File.Exists(filePath))
@@ -201,5 +207,3 @@ namespace RaceService.Application.Database
 
     }
 }
-
-
