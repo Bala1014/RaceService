@@ -16,9 +16,26 @@ namespace RaceService.Application.Database
         public DbSet<PastResult> PastResult { get; set; }
         public DbSet<RaceResult> RaceResult { get; set; }
         public DbSet<Track> Track { get; set; }
+        public DbSet<RaceEntryDriver> RaceEntryDriver {get; set;} 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<RaceEntryDriver>()
+                .HasKey(red => new { red.RaceEntryId, red.DriverId });
+
+            modelBuilder.Entity<RaceEntryDriver>()
+                .HasOne(red => red.RaceEntry)
+                .WithMany(re => re.Drivers)
+                .HasForeignKey(red => red.RaceEntryId);
+
+            modelBuilder.Entity<RaceEntryDriver>()
+                .HasOne(red => red.Driver)
+                .WithMany(d => d.RaceEntryDrivers)
+                .HasForeignKey(red => red.DriverId);
+
             base.OnModelCreating(modelBuilder);
+            
             // Configure relationships and constraints here if needed
             //modelBuilder.Entity<RaceEntry>()
             //    .HasOne(re => re.Driver1)
