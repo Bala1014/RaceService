@@ -78,7 +78,14 @@ To view logs specific to the `open-webui` running container:
 docker logs open-webui  
 ```
 
-dotnet ef migrations add UpdatedTrackId  --project RaceService.Application --startup-project RaceService.Api
+To Run the project
+```sh
+dotnet run --project /home/balagod99/Dev/RaceService/RaceService/RaceService.Api/RaceService.Api.csproj
+```
 
 
-# dotnet run --project /home/balagod99/Dev/RaceService/RaceService/RaceService.Api/RaceService.Api.csproj
+To make new migartion run from root RaceService:
+
+```sh
+dotnet ef migrations add 25042026_addedRaceEntryDrivers   --project RaceService.Application   --startup-project RaceService.Api
+```

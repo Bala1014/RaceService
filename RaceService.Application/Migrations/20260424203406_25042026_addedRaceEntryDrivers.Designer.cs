@@ -12,8 +12,8 @@ using RaceService.Application.Database;
 namespace RaceService.Application.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260222225458_InitialCommit")]
-    partial class InitialCommit
+    [Migration("20260424203406_25042026_addedRaceEntryDrivers")]
+    partial class _25042026_addedRaceEntryDrivers
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,9 +46,8 @@ namespace RaceService.Application.Migrations
                     b.Property<int>("Number")
                         .HasColumnType("integer");
 
-                    b.Property<string>("RaceWins")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("RaceWins")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -61,10 +60,7 @@ namespace RaceService.Application.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<int>("RaceId")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid?>("RaceId1")
+                    b.Property<Guid>("RaceId")
                         .HasColumnType("uuid");
 
                     b.Property<int>("Year")
@@ -72,7 +68,7 @@ namespace RaceService.Application.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RaceId1");
+                    b.HasIndex("RaceId");
 
                     b.ToTable("PastResult");
                 });
@@ -127,21 +123,6 @@ namespace RaceService.Application.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid>("Driver1Id")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("Driver2Id")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("Driver3Id")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("Driver4Id")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("DriverResId")
-                        .HasColumnType("uuid");
-
                     b.Property<string>("PUManufacturer")
                         .IsRequired()
                         .HasColumnType("text");
@@ -159,19 +140,27 @@ namespace RaceService.Application.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Driver1Id");
-
-                    b.HasIndex("Driver2Id");
-
-                    b.HasIndex("Driver3Id");
-
-                    b.HasIndex("Driver4Id");
-
-                    b.HasIndex("DriverResId");
-
                     b.HasIndex("RaceId");
 
                     b.ToTable("RaceEntry");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.RaceEntryDriver", b =>
+                {
+                    b.Property<Guid>("RaceEntryId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("DriverId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("integer");
+
+                    b.HasKey("RaceEntryId", "DriverId");
+
+                    b.HasIndex("DriverId");
+
+                    b.ToTable("RaceEntryDriver");
                 });
 
             modelBuilder.Entity("RaceService.Application.Domain.Entities.RaceResult", b =>
@@ -189,10 +178,13 @@ namespace RaceService.Application.Migrations
                     b.Property<int>("LapsCompleted")
                         .HasColumnType("integer");
 
-                    b.Property<Guid?>("PastResultId")
+                    b.Property<Guid>("PastResultId")
                         .HasColumnType("uuid");
 
                     b.Property<int>("Points")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Position")
                         .HasColumnType("integer");
 
                     b.Property<Guid>("RaceEntryId")
@@ -204,10 +196,9 @@ namespace RaceService.Application.Migrations
                     b.Property<TimeSpan>("TotalTime")
                         .HasColumnType("interval");
 
-                    b.Property<int>("position")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("DriverId");
 
                     b.HasIndex("PastResultId");
 
@@ -222,8 +213,8 @@ namespace RaceService.Application.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<TimeOnly>("BestLapTime")
-                        .HasColumnType("time without time zone");
+                    b.Property<TimeSpan?>("BestLapTime")
+                        .HasColumnType("interval");
 
                     b.Property<string>("Country")
                         .IsRequired()
@@ -233,8 +224,8 @@ namespace RaceService.Application.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("LengthInKm")
-                        .HasColumnType("integer");
+                    b.Property<decimal>("LengthInKm")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("Location")
                         .IsRequired()
@@ -255,15 +246,19 @@ namespace RaceService.Application.Migrations
 
             modelBuilder.Entity("RaceService.Application.Domain.Entities.PastResult", b =>
                 {
-                    b.HasOne("RaceService.Application.Domain.Entities.Race", null)
+                    b.HasOne("RaceService.Application.Domain.Entities.Race", "Race")
                         .WithMany("PastResults")
-                        .HasForeignKey("RaceId1");
+                        .HasForeignKey("RaceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Race");
                 });
 
             modelBuilder.Entity("RaceService.Application.Domain.Entities.Race", b =>
                 {
                     b.HasOne("RaceService.Application.Domain.Entities.Track", "Track")
-                        .WithMany()
+                        .WithMany("Races")
                         .HasForeignKey("TrackId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -273,66 +268,64 @@ namespace RaceService.Application.Migrations
 
             modelBuilder.Entity("RaceService.Application.Domain.Entities.RaceEntry", b =>
                 {
-                    b.HasOne("RaceService.Application.Domain.Entities.Driver", "Driver1")
-                        .WithMany()
-                        .HasForeignKey("Driver1Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RaceService.Application.Domain.Entities.Driver", "Driver2")
-                        .WithMany()
-                        .HasForeignKey("Driver2Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RaceService.Application.Domain.Entities.Driver", "Driver3")
-                        .WithMany()
-                        .HasForeignKey("Driver3Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RaceService.Application.Domain.Entities.Driver", "Driver4")
-                        .WithMany()
-                        .HasForeignKey("Driver4Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RaceService.Application.Domain.Entities.Driver", "DriverRes")
-                        .WithMany()
-                        .HasForeignKey("DriverResId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RaceService.Application.Domain.Entities.Race", null)
+                    b.HasOne("RaceService.Application.Domain.Entities.Race", "Race")
                         .WithMany("Entries")
                         .HasForeignKey("RaceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Driver1");
-
-                    b.Navigation("Driver2");
-
-                    b.Navigation("Driver3");
-
-                    b.Navigation("Driver4");
-
-                    b.Navigation("DriverRes");
+                    b.Navigation("Race");
                 });
 
-            modelBuilder.Entity("RaceService.Application.Domain.Entities.RaceResult", b =>
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.RaceEntryDriver", b =>
                 {
-                    b.HasOne("RaceService.Application.Domain.Entities.PastResult", null)
-                        .WithMany("RaceResults")
-                        .HasForeignKey("PastResultId");
+                    b.HasOne("RaceService.Application.Domain.Entities.Driver", "Driver")
+                        .WithMany("RaceEntryDrivers")
+                        .HasForeignKey("DriverId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("RaceService.Application.Domain.Entities.RaceEntry", "RaceEntry")
-                        .WithMany()
+                        .WithMany("Drivers")
                         .HasForeignKey("RaceEntryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Driver");
+
                     b.Navigation("RaceEntry");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.RaceResult", b =>
+                {
+                    b.HasOne("RaceService.Application.Domain.Entities.Driver", "Driver")
+                        .WithMany()
+                        .HasForeignKey("DriverId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RaceService.Application.Domain.Entities.PastResult", "PastResult")
+                        .WithMany("RaceResults")
+                        .HasForeignKey("PastResultId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RaceService.Application.Domain.Entities.RaceEntry", "RaceEntry")
+                        .WithMany("Results")
+                        .HasForeignKey("RaceEntryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Driver");
+
+                    b.Navigation("PastResult");
+
+                    b.Navigation("RaceEntry");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Driver", b =>
+                {
+                    b.Navigation("RaceEntryDrivers");
                 });
 
             modelBuilder.Entity("RaceService.Application.Domain.Entities.PastResult", b =>
@@ -345,6 +338,18 @@ namespace RaceService.Application.Migrations
                     b.Navigation("Entries");
 
                     b.Navigation("PastResults");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.RaceEntry", b =>
+                {
+                    b.Navigation("Drivers");
+
+                    b.Navigation("Results");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Track", b =>
+                {
+                    b.Navigation("Races");
                 });
 #pragma warning restore 612, 618
         }

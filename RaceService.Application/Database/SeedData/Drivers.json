@@ -5,7 +5,7 @@
     "number": 44,
     "nationality": "British",
     "category": "pro",
-    "raceWins": "103"
+    "raceWins": 103
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440002",
@@ -13,7 +13,7 @@
     "number": 1,
     "nationality": "Dutch",
     "category": "pro",
-    "raceWins": "75"
+    "raceWins": 75
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440003",
@@ -21,7 +21,7 @@
     "number": 16,
     "nationality": "Monegasque",
     "category": "pro",
-    "raceWins": "5"
+    "raceWins": 5
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440004",
@@ -29,7 +29,7 @@
     "number": 55,
     "nationality": "Spanish",
     "category": "pro",
-    "raceWins": "3"
+    "raceWins": 3
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440005",
@@ -37,7 +37,7 @@
     "number": 4,
     "nationality": "British",
     "category": "pro",
-    "raceWins": "0"
+    "raceWins": 0
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440006",
@@ -45,7 +45,7 @@
     "number": 81,
     "nationality": "Australian",
     "category": "pro",
-    "raceWins": "2"
+    "raceWins": 2
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440007",
@@ -53,7 +53,7 @@
     "number": 63,
     "nationality": "British",
     "category": "pro",
-    "raceWins": "1"
+    "raceWins": 1
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440008",
@@ -61,7 +61,7 @@
     "number": 11,
     "nationality": "Mexican",
     "category": "pro",
-    "raceWins": "6"
+    "raceWins": 6
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440009",
@@ -69,7 +69,7 @@
     "number": 14,
     "nationality": "Spanish",
     "category": "pro-am",
-    "raceWins": "32"
+    "raceWins": 32
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440010",
@@ -77,7 +77,7 @@
     "number": 18,
     "nationality": "Canadian",
     "category": "am",
-    "raceWins": "0"
+    "raceWins": 0
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440011",
@@ -85,7 +85,7 @@
     "number": 22,
     "nationality": "Japanese",
     "category": "pro",
-    "raceWins": "0"
+    "raceWins": 0
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440012",
@@ -93,7 +93,7 @@
     "number": 3,
     "nationality": "Australian",
     "category": "pro",
-    "raceWins": "8"
+    "raceWins": 8
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440013",
@@ -101,7 +101,7 @@
     "number": 10,
     "nationality": "French",
     "category": "pro",
-    "raceWins": "1"
+    "raceWins": 1
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440014",
@@ -109,7 +109,7 @@
     "number": 31,
     "nationality": "French",
     "category": "pro",
-    "raceWins": "1"
+    "raceWins": 1
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440015",
@@ -117,7 +117,7 @@
     "number": 20,
     "nationality": "Danish",
     "category": "pro",
-    "raceWins": "0"
+    "raceWins": 0
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440016",
@@ -125,7 +125,7 @@
     "number": 27,
     "nationality": "German",
     "category": "pro",
-    "raceWins": "0"
+    "raceWins": 0
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440017",
@@ -133,7 +133,7 @@
     "number": 23,
     "nationality": "Thai",
     "category": "pro",
-    "raceWins": "0"
+    "raceWins": 0
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440018",
@@ -141,7 +141,7 @@
     "number": 2,
     "nationality": "American",
     "category": "pro",
-    "raceWins": "0"
+    "raceWins": 0
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440019",
@@ -149,7 +149,7 @@
     "number": 77,
     "nationality": "Finnish",
     "category": "pro-am",
-    "raceWins": "10"
+    "raceWins": 10
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440020",
@@ -157,6 +157,6 @@
     "number": 24,
     "nationality": "Chinese",
     "category": "pro",
-    "raceWins": "0"
+    "raceWins": 0
   }
 ]
