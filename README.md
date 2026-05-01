@@ -89,3 +89,6 @@ To make new migartion run from root RaceService:
 ```sh
 dotnet ef migrations add 25042026_addedRaceEntryDrivers   --project RaceService.Application   --startup-project RaceService.Api
 ```
+
+
+watch -n 1 nvidia-smi
