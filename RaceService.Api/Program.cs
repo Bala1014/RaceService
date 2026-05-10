@@ -1,4 +1,5 @@
 using RaceService.Api.Extensions;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Scalar.AspNetCore;
 
 namespace RaceService.Api;
@@ -11,6 +12,7 @@ public class Program
         builder.Services.AddAuthorization();
         builder.Services.AddControllers(); 
         builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddHealthChecks();
         builder.Services.AddSwaggerGen();
         builder.Services.AddPostgres();
 
@@ -23,7 +25,8 @@ public class Program
         app.UseHttpsRedirection();
         app.UseAuthorization();
         app.ApplyMigrations();
-        app.MapControllers();                       
+        app.MapControllers();           
+        app.MapHealthChecks("/health");            
         app.Run();
     }
 }
