@@ -17,11 +17,10 @@ public class Program
         builder.Services.AddPostgres();
 
         var app = builder.Build();
-        if (app.Environment.IsDevelopment())
-        {
-            app.MapSwagger("/openapi/{documentName}.json");
-            app.MapScalarApiReference();
-        }
+
+        app.MapSwagger("/openapi/{documentName}.json");
+        app.MapScalarApiReference();
+
         app.UseHttpsRedirection();
         app.UseAuthorization();
         app.ApplyMigrations();
