@@ -108,7 +108,7 @@ namespace RaceService.Application.Database
                         StartTimeUTC = r.StartTimeUTC,
                         Laps         = r.Laps,
                         Status       = (RaceStatus)r.Status,
-                        CreatedAt    = r.CreatedAt,
+                        CreatedAtUTC    = r.CreatedAtUTC,
                         TrackId      = Guid.Parse(r.TrackId)
                         // Do NOT set Entries or PastResults here.
                         // They are seeded separately below and linked via their own FK columns.
@@ -271,7 +271,7 @@ namespace RaceService.Application.Database
             public string TrackId { get; set; } = string.Empty;
             public int Laps { get; set; }
             public int Status { get; set; }
-            public DateTime CreatedAt { get; set; }
+            public DateTime CreatedAtUTC { get; set; }
         }
 
         public class RaceEntryDto

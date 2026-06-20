@@ -42,12 +42,12 @@ namespace RaceService.Api.Controllers
         {
             var newEntity = new Race
             {
-                Id = new Guid(),
+                Id = Guid.NewGuid(),
                 Name = name,
                 StartTimeUTC = startTimeUTC,
                 Laps         = laps,
                 Status       = RaceStatus.Upcoming,
-                CreatedAt    = DateTime.Now,
+                CreatedAtUTC = DateTime.UtcNow,
                 TrackId      = trackId
             } ;
 
