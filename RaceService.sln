@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaceService.Application", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaceService.Tests", "RaceService.Tests\RaceService.Tests.csproj", "{B87B3D9E-D20B-488B-B9D6-27E88B58E327}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaceService.Gateway", "RaceService.Gateway\RaceService.Gateway.csproj", "{5AEA12FB-2A0D-4B17-ADDB-C32CAF5FFC3D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
