@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using RaceService.Application.Domain.Entities;
+using RaceService.Contracts.Domain.Entities;
 
 namespace RaceService.Application.Database.Configurations
 {

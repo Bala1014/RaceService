@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using RaceService.Application.Domain.Entities;
+using RaceService.Contracts.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.IO;

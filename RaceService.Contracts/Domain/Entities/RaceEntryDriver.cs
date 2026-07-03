@@ -1,4 +1,4 @@
-namespace RaceService.Application.Domain.Entities
+namespace RaceService.Contracts.Domain.Entities
 {
     public class RaceEntryDriver
     {

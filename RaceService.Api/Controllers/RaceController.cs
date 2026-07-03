@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RaceService.Application.Database;
-using RaceService.Application.Domain.Entities;
+using RaceService.Contracts.Domain.Entities;
 
 namespace RaceService.Api.Controllers
 {

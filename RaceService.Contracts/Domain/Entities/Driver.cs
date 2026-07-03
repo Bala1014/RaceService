@@ -1,4 +1,4 @@
-namespace RaceService.Application.Domain.Entities
+namespace RaceService.Contracts.Domain.Entities
 {
     public class Driver : Entity
     {
@@ -9,6 +9,6 @@ namespace RaceService.Application.Domain.Entities
         public int RaceWins { get; set; }
 
         // TODO : Add other driver stats
-        public ICollection<RaceEntryDriver> RaceEntryDrivers { get; set; } = [];
+        public ICollection<RaceEntryDriver> RaceEntryDrivers { get; set; } = [];    // not stored in the db
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace RaceService.Application.Domain.Entities
+﻿namespace RaceService.Contracts.Domain.Entities
 {
     public class Race
     {
@@ -10,7 +10,7 @@
         public int Laps { get; set; }
         public RaceStatus Status { get; set; }
         public DateTime CreatedAtUTC { get; set; }
-        public ICollection<RaceEntry> Entries { get; set; } = [];
-        public ICollection<PastResult> PastResults { get; set; } = [];
+        public ICollection<RaceEntry> Entries { get; set; } = [];    // not stored in the db
+        public ICollection<PastResult> PastResults { get; set; } = [];  // not stored in the db
     }
 }
