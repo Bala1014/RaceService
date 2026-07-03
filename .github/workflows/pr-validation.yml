@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  PROJECT_ID: racingvacing
+  PROJECT_ID: racingglazing
   REGION: asia-south1
   SERVICE: raceservice
 

@@ -8,7 +8,7 @@ on:
         required: true
 
 env:
-  PROJECT_ID: racingvacing
+  PROJECT_ID: racingglazing
   REGION: asia-south1
   SERVICE: raceservice
 
@@ -53,8 +53,8 @@ jobs:
             --region $REGION \
             --platform managed \
             --allow-unauthenticated \
-            --add-cloudsql-instances racingvacing:asia-south1:my-postgres \
-            --set-env-vars POSTGRES_HOST=/cloudsql/racingvacing:asia-south1:my-postgres \
+            --add-cloudsql-instances racingglazing:asia-south1:raceservice-postgres \
+            --set-env-vars POSTGRES_HOST=/cloudsql/racingglazing:asia-south1:raceservice-postgres \
             --set-env-vars POSTGRES_DB=raceservice \
             --set-env-vars POSTGRES_USER=postgres \
             --set-env-vars POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
