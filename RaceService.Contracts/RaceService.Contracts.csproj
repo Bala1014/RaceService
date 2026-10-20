@@ -1,9 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <!-- Published as a NuGet package so other services can consume the API contract
+         without referencing this repository. -->
+    <PackageId>RacingVacing.RaceService.Contracts</PackageId>
+    <Version>1.0.0</Version>
+    <Description>Public request and response contracts for the RacingVacing RaceService API.</Description>
   </PropertyGroup>
 
 </Project>

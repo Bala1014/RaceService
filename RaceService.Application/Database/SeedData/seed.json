@@ -1,0 +1,418 @@
+{
+  "manufacturers": [
+    { "key": "ferrari",  "name": "Ferrari",       "slug": "ferrari",       "countryCode": "ITA", "suppliesChassis": true, "suppliesEngines": true },
+    { "key": "mercedes", "name": "Mercedes",      "slug": "mercedes",      "countryCode": "DEU", "suppliesChassis": true, "suppliesEngines": true },
+    { "key": "redbull",  "name": "Red Bull",      "slug": "red-bull",      "countryCode": "AUT", "suppliesChassis": true },
+    { "key": "honda",    "name": "Honda RBPT",    "slug": "honda-rbpt",    "countryCode": "JPN", "suppliesEngines": true },
+    { "key": "mclaren",  "name": "McLaren",       "slug": "mclaren",       "countryCode": "GBR", "suppliesChassis": true },
+    { "key": "porsche",  "name": "Porsche",       "slug": "porsche",       "countryCode": "DEU", "suppliesChassis": true, "suppliesEngines": true },
+    { "key": "toyota",   "name": "Toyota",        "slug": "toyota",        "countryCode": "JPN", "suppliesChassis": true, "suppliesEngines": true },
+    { "key": "oreca",    "name": "Oreca",         "slug": "oreca",         "countryCode": "FRA", "suppliesChassis": true },
+    { "key": "gibson",   "name": "Gibson",        "slug": "gibson",        "countryCode": "GBR", "suppliesEngines": true },
+    { "key": "pirelli",  "name": "Pirelli",       "slug": "pirelli",       "countryCode": "ITA", "suppliesTyres": true },
+    { "key": "michelin", "name": "Michelin",      "slug": "michelin",      "countryCode": "FRA", "suppliesTyres": true }
+  ],
+
+  "tracks": [
+    {
+      "key": "monaco",
+      "name": "Circuit de Monaco",
+      "officialName": "Circuit de Monaco",
+      "slug": "circuit-de-monaco",
+      "city": "Monte Carlo",
+      "country": "Monaco",
+      "countryCode": "MCO",
+      "timeZoneId": "Europe/Monaco",
+      "latitude": 43.7347,
+      "longitude": 7.4206,
+      "openedYear": 1929,
+      "layouts": [
+        {
+          "key": "monaco-gp",
+          "name": "Grand Prix Circuit",
+          "slug": "grand-prix",
+          "lengthMeters": 3337,
+          "numberOfTurns": 19,
+          "direction": "Clockwise",
+          "trackType": "StreetCircuit",
+          "isCurrent": true,
+          "lapRecords": [
+            {
+              "recordType": "RaceLap",
+              "lapTimeMs": 74102,
+              "seriesKey": "f1",
+              "driverKey": "norris",
+              "teamKey": "mclaren-f1",
+              "setOn": "2026-05-24",
+              "vehicleDescription": "McLaren MCL40",
+              "isCurrent": true
+            },
+            {
+              "recordType": "QualifyingLap",
+              "lapTimeMs": 70270,
+              "seriesKey": "f1",
+              "driverKey": "leclerc",
+              "teamKey": "ferrari-f1",
+              "setOn": "2026-05-23",
+              "vehicleDescription": "Ferrari SF-26",
+              "isCurrent": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "silverstone",
+      "name": "Silverstone Circuit",
+      "slug": "silverstone",
+      "city": "Silverstone",
+      "country": "United Kingdom",
+      "countryCode": "GBR",
+      "timeZoneId": "Europe/London",
+      "latitude": 52.0733,
+      "longitude": -1.0142,
+      "openedYear": 1948,
+      "layouts": [
+        {
+          "key": "silverstone-gp",
+          "name": "Grand Prix Circuit",
+          "slug": "grand-prix",
+          "lengthMeters": 5891,
+          "numberOfTurns": 18,
+          "direction": "Clockwise",
+          "trackType": "PermanentCircuit",
+          "isCurrent": true
+        },
+        {
+          "key": "silverstone-national",
+          "name": "National Circuit",
+          "slug": "national",
+          "lengthMeters": 2639,
+          "numberOfTurns": 10,
+          "direction": "Clockwise",
+          "trackType": "PermanentCircuit",
+          "isCurrent": false
+        }
+      ]
+    },
+    {
+      "key": "lemans",
+      "name": "Circuit de la Sarthe",
+      "slug": "circuit-de-la-sarthe",
+      "city": "Le Mans",
+      "country": "France",
+      "countryCode": "FRA",
+      "timeZoneId": "Europe/Paris",
+      "latitude": 47.9556,
+      "longitude": 0.2247,
+      "openedYear": 1923,
+      "layouts": [
+        {
+          "key": "lemans-24h",
+          "name": "24 Hours Circuit",
+          "slug": "24-hours",
+          "lengthMeters": 13626,
+          "numberOfTurns": 38,
+          "direction": "Clockwise",
+          "trackType": "Hybrid",
+          "isCurrent": true,
+          "lapRecords": [
+            {
+              "recordType": "RaceLap",
+              "lapTimeMs": 205118,
+              "seriesKey": "wec",
+              "vehicleClassKey": "hypercar",
+              "driverKey": "hirakawa",
+              "teamKey": "toyota-wec",
+              "setOn": "2026-06-13",
+              "vehicleDescription": "Toyota GR010 Hybrid",
+              "isCurrent": true
+            }
+          ]
+        }
+      ]
+    }
+  ],
+
+  "teams": [
+    { "key": "ferrari-f1",  "name": "Scuderia Ferrari",         "shortName": "Ferrari",  "slug": "scuderia-ferrari",         "countryCode": "ITA", "baseCity": "Maranello",   "baseCountry": "Italy",          "foundedYear": 1929, "primaryColorHex": "#E8002D" },
+    { "key": "redbull-f1",  "name": "Oracle Red Bull Racing",   "shortName": "Red Bull", "slug": "red-bull-racing",          "countryCode": "AUT", "baseCity": "Milton Keynes","baseCountry": "United Kingdom", "foundedYear": 2005, "primaryColorHex": "#3671C6" },
+    { "key": "mclaren-f1",  "name": "McLaren Formula 1 Team",   "shortName": "McLaren",  "slug": "mclaren-f1",               "countryCode": "GBR", "baseCity": "Woking",      "baseCountry": "United Kingdom", "foundedYear": 1963, "primaryColorHex": "#FF8000" },
+    { "key": "mercedes-f1", "name": "Mercedes-AMG Petronas",    "shortName": "Mercedes", "slug": "mercedes-amg-petronas",    "countryCode": "DEU", "baseCity": "Brackley",    "baseCountry": "United Kingdom", "foundedYear": 2010, "primaryColorHex": "#27F4D2" },
+    { "key": "porsche-wec", "name": "Porsche Penske Motorsport","shortName": "Porsche",  "slug": "porsche-penske-motorsport","countryCode": "DEU", "baseCity": "Mannheim",    "baseCountry": "Germany",        "foundedYear": 2021, "primaryColorHex": "#D5001C" },
+    { "key": "toyota-wec",  "name": "Toyota Gazoo Racing",      "shortName": "Toyota",   "slug": "toyota-gazoo-racing",      "countryCode": "JPN", "baseCity": "Cologne",     "baseCountry": "Germany",        "foundedYear": 2012, "primaryColorHex": "#EB0A1E" },
+    { "key": "united-wec",  "name": "United Autosports",        "shortName": "United",   "slug": "united-autosports",        "countryCode": "GBR", "baseCity": "Leeds",       "baseCountry": "United Kingdom", "foundedYear": 2009, "primaryColorHex": "#1B75BB" }
+  ],
+
+  "drivers": [
+    { "key": "leclerc",  "firstName": "Charles",  "lastName": "Leclerc",   "abbreviation": "LEC", "slug": "charles-leclerc",   "countryCode": "MCO", "nationality": "Monegasque", "dateOfBirth": "1997-10-16", "placeOfBirth": "Monte Carlo",  "permanentNumber": 16 },
+    { "key": "hamilton", "firstName": "Lewis",    "lastName": "Hamilton",  "abbreviation": "HAM", "slug": "lewis-hamilton",    "countryCode": "GBR", "nationality": "British",    "dateOfBirth": "1985-01-07", "placeOfBirth": "Stevenage",    "permanentNumber": 44 },
+    { "key": "verstappen","firstName": "Max",     "lastName": "Verstappen","abbreviation": "VER", "slug": "max-verstappen",    "countryCode": "NLD", "nationality": "Dutch",      "dateOfBirth": "1997-09-30", "placeOfBirth": "Hasselt",      "permanentNumber": 1 },
+    { "key": "norris",   "firstName": "Lando",    "lastName": "Norris",    "abbreviation": "NOR", "slug": "lando-norris",      "countryCode": "GBR", "nationality": "British",    "dateOfBirth": "1999-11-13", "placeOfBirth": "Bristol",      "permanentNumber": 4 },
+    { "key": "piastri",  "firstName": "Oscar",    "lastName": "Piastri",   "abbreviation": "PIA", "slug": "oscar-piastri",     "countryCode": "AUS", "nationality": "Australian", "dateOfBirth": "2001-04-06", "placeOfBirth": "Melbourne",    "permanentNumber": 81 },
+    { "key": "russell",  "firstName": "George",   "lastName": "Russell",   "abbreviation": "RUS", "slug": "george-russell",    "countryCode": "GBR", "nationality": "British",    "dateOfBirth": "1998-02-15", "placeOfBirth": "King's Lynn",  "permanentNumber": 63 },
+
+    { "key": "estre",    "firstName": "Kevin",    "lastName": "Estre",     "abbreviation": "EST", "slug": "kevin-estre",       "countryCode": "FRA", "nationality": "French",     "dateOfBirth": "1988-09-28" },
+    { "key": "vanthoor", "firstName": "Laurens",  "lastName": "Vanthoor",  "abbreviation": "VTH", "slug": "laurens-vanthoor",  "countryCode": "BEL", "nationality": "Belgian",    "dateOfBirth": "1991-05-08" },
+    { "key": "christensen","firstName": "Michael","lastName": "Christensen","abbreviation": "CHR","slug": "michael-christensen","countryCode": "DNK","nationality": "Danish",     "dateOfBirth": "1990-06-16" },
+    { "key": "buemi",    "firstName": "Sebastien","lastName": "Buemi",     "abbreviation": "BUE", "slug": "sebastien-buemi",   "countryCode": "CHE", "nationality": "Swiss",      "dateOfBirth": "1988-10-31" },
+    { "key": "hartley",  "firstName": "Brendon",  "lastName": "Hartley",   "abbreviation": "HAR", "slug": "brendon-hartley",   "countryCode": "NZL", "nationality": "New Zealander","dateOfBirth": "1989-11-10" },
+    { "key": "hirakawa", "firstName": "Ryo",      "lastName": "Hirakawa",  "abbreviation": "HIR", "slug": "ryo-hirakawa",      "countryCode": "JPN", "nationality": "Japanese",   "dateOfBirth": "1994-01-07" },
+    { "key": "hanson",   "firstName": "Philip",   "lastName": "Hanson",    "abbreviation": "HAN", "slug": "philip-hanson",     "countryCode": "GBR", "nationality": "British",    "dateOfBirth": "1999-04-10" },
+    { "key": "albuquerque","firstName": "Filipe", "lastName": "Albuquerque","abbreviation": "ALB","slug": "filipe-albuquerque","countryCode": "PRT", "nationality": "Portuguese", "dateOfBirth": "1985-06-13" },
+    { "key": "dilesta",  "firstName": "Oliver",   "lastName": "Jarvis",    "abbreviation": "JAR", "slug": "oliver-jarvis",     "countryCode": "GBR", "nationality": "British",    "dateOfBirth": "1984-01-09" }
+  ],
+
+  "series": [
+    {
+      "key": "f1",
+      "name": "FIA Formula One World Championship",
+      "shortName": "F1",
+      "slug": "formula-1",
+      "discipline": "OpenWheel",
+      "sanctioningBody": "FIA",
+      "description": "The premier class of international single-seater racing.",
+      "primaryColorHex": "#E10600",
+      "inauguralYear": 1950,
+      "displayOrder": 1,
+      "vehicleClasses": [],
+      "seasons": [
+        {
+          "year": 2026,
+          "name": "2026 FIA Formula One World Championship",
+          "slug": "2026",
+          "status": "InProgress",
+          "startDate": "2026-03-08",
+          "endDate": "2026-12-06",
+          "plannedRoundCount": 24,
+          "pointsSchemes": [
+            {
+              "name": "Grand Prix points",
+              "appliesToSessionType": "Race",
+              "championshipType": "Drivers",
+              "fastestLapPoints": 0,
+              "polePositionPoints": 0,
+              "minimumDistancePercent": 90,
+              "minimumDriverDistancePercent": 0,
+              "positions": {
+                "1": 25, "2": 18, "3": 15, "4": 12, "5": 10,
+                "6": 8, "7": 6, "8": 4, "9": 2, "10": 1
+              }
+            },
+            {
+              "name": "Sprint points",
+              "appliesToSessionType": "Sprint",
+              "championshipType": "Drivers",
+              "minimumDistancePercent": 90,
+              "positions": { "1": 8, "2": 7, "3": 6, "4": 5, "5": 4, "6": 3, "7": 2, "8": 1 }
+            }
+          ],
+          "entries": [
+            { "key": "f1-16", "teamKey": "ferrari-f1",  "carNumber": "16", "entrantName": "Scuderia Ferrari HP",       "chassisManufacturerKey": "ferrari",  "chassisModel": "SF-26", "engineManufacturerKey": "ferrari",  "engineModel": "066/13", "tyreSupplierKey": "pirelli", "status": "Confirmed" },
+            { "key": "f1-44", "teamKey": "ferrari-f1",  "carNumber": "44", "entrantName": "Scuderia Ferrari HP",       "chassisManufacturerKey": "ferrari",  "chassisModel": "SF-26", "engineManufacturerKey": "ferrari",  "engineModel": "066/13", "tyreSupplierKey": "pirelli", "status": "Confirmed" },
+            { "key": "f1-1",  "teamKey": "redbull-f1",  "carNumber": "1",  "entrantName": "Oracle Red Bull Racing",    "chassisManufacturerKey": "redbull",  "chassisModel": "RB22",  "engineManufacturerKey": "honda",    "engineModel": "RBPTH003","tyreSupplierKey": "pirelli", "status": "Confirmed" },
+            { "key": "f1-4",  "teamKey": "mclaren-f1",  "carNumber": "4",  "entrantName": "McLaren Formula 1 Team",    "chassisManufacturerKey": "mclaren",  "chassisModel": "MCL40", "engineManufacturerKey": "mercedes", "engineModel": "M17",     "tyreSupplierKey": "pirelli", "status": "Confirmed" },
+            { "key": "f1-81", "teamKey": "mclaren-f1",  "carNumber": "81", "entrantName": "McLaren Formula 1 Team",    "chassisManufacturerKey": "mclaren",  "chassisModel": "MCL40", "engineManufacturerKey": "mercedes", "engineModel": "M17",     "tyreSupplierKey": "pirelli", "status": "Confirmed" },
+            { "key": "f1-63", "teamKey": "mercedes-f1", "carNumber": "63", "entrantName": "Mercedes-AMG Petronas F1",  "chassisManufacturerKey": "mercedes", "chassisModel": "W17",   "engineManufacturerKey": "mercedes", "engineModel": "M17",     "tyreSupplierKey": "pirelli", "status": "Confirmed" }
+          ],
+          "events": [
+            {
+              "name": "Monaco Grand Prix",
+              "officialName": "Formula 1 Grand Prix de Monaco 2026",
+              "shortName": "Monaco",
+              "slug": "monaco-grand-prix",
+              "trackLayoutKey": "monaco-gp",
+              "roundNumber": 8,
+              "status": "Completed",
+              "shortDescription": "The blue riband round of the championship, run through the streets of Monte Carlo.",
+              "scheduledDistanceMeters": 260286,
+              "isPublished": true,
+              "entries": [
+                { "entryKey": "f1-16", "driverKeys": ["leclerc"],   "startingGridPosition": 1 },
+                { "entryKey": "f1-44", "driverKeys": ["hamilton"],  "startingGridPosition": 4 },
+                { "entryKey": "f1-1",  "driverKeys": ["verstappen"],"startingGridPosition": 3 },
+                { "entryKey": "f1-4",  "driverKeys": ["norris"],    "startingGridPosition": 2 },
+                { "entryKey": "f1-81", "driverKeys": ["piastri"],   "startingGridPosition": 5 },
+                { "entryKey": "f1-63", "driverKeys": ["russell"],   "startingGridPosition": 6 }
+              ],
+              "sessions": [
+                { "type": "Practice",   "sequenceNumber": 1, "name": "Practice 1",  "scheduledStartUtc": "2026-05-22T11:30:00Z", "scheduledEndUtc": "2026-05-22T12:30:00Z", "scheduledDurationMinutes": 60, "status": "Finished" },
+                { "type": "Practice",   "sequenceNumber": 2, "name": "Practice 2",  "scheduledStartUtc": "2026-05-22T15:00:00Z", "scheduledEndUtc": "2026-05-22T16:00:00Z", "scheduledDurationMinutes": 60, "status": "Finished" },
+                { "type": "Practice",   "sequenceNumber": 3, "name": "Practice 3",  "scheduledStartUtc": "2026-05-23T10:30:00Z", "scheduledEndUtc": "2026-05-23T11:30:00Z", "scheduledDurationMinutes": 60, "status": "Finished" },
+                { "type": "Qualifying", "sequenceNumber": 1, "name": "Qualifying 1","scheduledStartUtc": "2026-05-23T14:00:00Z", "scheduledEndUtc": "2026-05-23T14:18:00Z", "scheduledDurationMinutes": 18, "status": "Finished" },
+                { "type": "Qualifying", "sequenceNumber": 2, "name": "Qualifying 2","scheduledStartUtc": "2026-05-23T14:26:00Z", "scheduledEndUtc": "2026-05-23T14:41:00Z", "scheduledDurationMinutes": 15, "status": "Finished" },
+                {
+                  "type": "Qualifying", "sequenceNumber": 3, "name": "Qualifying 3",
+                  "scheduledStartUtc": "2026-05-23T14:49:00Z", "scheduledEndUtc": "2026-05-23T15:01:00Z",
+                  "scheduledDurationMinutes": 12, "status": "Finished", "resultsStatus": "Official",
+                  "results": [
+                    { "entryKey": "f1-16", "driverKeys": ["leclerc"],    "position": 1, "lapsCompleted": 8, "bestLapTimeMs": 70270, "isPolePosition": true },
+                    { "entryKey": "f1-4",  "driverKeys": ["norris"],     "position": 2, "lapsCompleted": 8, "bestLapTimeMs": 70423 },
+                    { "entryKey": "f1-1",  "driverKeys": ["verstappen"], "position": 3, "lapsCompleted": 8, "bestLapTimeMs": 70567 },
+                    { "entryKey": "f1-44", "driverKeys": ["hamilton"],   "position": 4, "lapsCompleted": 8, "bestLapTimeMs": 70612 },
+                    { "entryKey": "f1-81", "driverKeys": ["piastri"],    "position": 5, "lapsCompleted": 7, "bestLapTimeMs": 70744 },
+                    { "entryKey": "f1-63", "driverKeys": ["russell"],    "position": 6, "lapsCompleted": 7, "bestLapTimeMs": 70891 }
+                  ]
+                },
+                {
+                  "type": "Race", "sequenceNumber": 1, "name": "Race",
+                  "scheduledStartUtc": "2026-05-24T13:00:00Z", "scheduledEndUtc": "2026-05-24T15:00:00Z",
+                  "scheduledLaps": 78, "status": "Finished", "isPointsScoring": true, "resultsStatus": "Official",
+                  "results": [
+                    { "entryKey": "f1-16", "driverKeys": ["leclerc"],    "position": 1, "startingPosition": 1, "lapsCompleted": 78, "lapsLed": 62, "totalTimeMs": 6234512, "bestLapTimeMs": 74231, "bestLapNumber": 71, "pitStopCount": 1, "status": "Classified" },
+                    { "entryKey": "f1-4",  "driverKeys": ["norris"],     "position": 2, "startingPosition": 2, "lapsCompleted": 78, "lapsLed": 10, "gapToLeaderMs": 7614,  "bestLapTimeMs": 74102, "bestLapNumber": 73, "pitStopCount": 1, "isFastestLap": true, "status": "Classified" },
+                    { "entryKey": "f1-1",  "driverKeys": ["verstappen"], "position": 3, "startingPosition": 3, "lapsCompleted": 78, "lapsLed": 6,  "gapToLeaderMs": 12480, "bestLapTimeMs": 74390, "bestLapNumber": 70, "pitStopCount": 1, "status": "Classified" },
+                    { "entryKey": "f1-44", "driverKeys": ["hamilton"],   "position": 4, "startingPosition": 4, "lapsCompleted": 78, "gapToLeaderMs": 21105, "bestLapTimeMs": 74512, "pitStopCount": 1, "status": "Classified" },
+                    { "entryKey": "f1-81", "driverKeys": ["piastri"],    "position": 5, "startingPosition": 5, "lapsCompleted": 78, "gapToLeaderMs": 28934, "bestLapTimeMs": 74688, "pitStopCount": 1, "status": "Classified" },
+                    { "entryKey": "f1-63", "driverKeys": ["russell"],    "startingPosition": 6, "lapsCompleted": 41, "bestLapTimeMs": 75012, "pitStopCount": 1, "status": "Retired", "statusDetail": "Gearbox", "isClassified": false }
+                  ],
+                  "laps": [
+                    { "entryKey": "f1-16", "driverKey": "leclerc",    "lapNumber": 1,  "lapTimeMs": 76890, "position": 1 },
+                    { "entryKey": "f1-16", "driverKey": "leclerc",    "lapNumber": 2,  "lapTimeMs": 75410, "position": 1 },
+                    { "entryKey": "f1-16", "driverKey": "leclerc",    "lapNumber": 71, "lapTimeMs": 74231, "position": 1, "isPersonalBest": true },
+                    { "entryKey": "f1-4",  "driverKey": "norris",     "lapNumber": 73, "lapTimeMs": 74102, "position": 2, "isPersonalBest": true, "isSessionBest": true },
+                    { "entryKey": "f1-1",  "driverKey": "verstappen", "lapNumber": 35, "lapTimeMs": null,  "position": 3, "isPitInLap": true }
+                  ],
+                  "pitStops": [
+                    { "entryKey": "f1-16", "stopNumber": 1, "lapNumber": 35, "stationaryTimeMs": 2412, "totalPitLaneTimeMs": 21800, "tyreCompoundFitted": "Hard" },
+                    { "entryKey": "f1-4",  "stopNumber": 1, "lapNumber": 37, "stationaryTimeMs": 2298, "totalPitLaneTimeMs": 21650, "tyreCompoundFitted": "Hard" },
+                    { "entryKey": "f1-1",  "stopNumber": 1, "lapNumber": 35, "stationaryTimeMs": 2355, "totalPitLaneTimeMs": 21900, "tyreCompoundFitted": "Hard" },
+                    { "entryKey": "f1-44", "stopNumber": 1, "lapNumber": 36, "stationaryTimeMs": 2401, "totalPitLaneTimeMs": 22010, "tyreCompoundFitted": "Hard" },
+                    { "entryKey": "f1-81", "stopNumber": 1, "lapNumber": 38, "stationaryTimeMs": 2330, "totalPitLaneTimeMs": 21750, "tyreCompoundFitted": "Hard" },
+                    { "entryKey": "f1-63", "stopNumber": 1, "lapNumber": 30, "stationaryTimeMs": 2500, "totalPitLaneTimeMs": 22200, "tyreCompoundFitted": "Medium" }
+                  ],
+                  "penalties": [
+                    { "entryKey": "f1-1", "driverKey": "verstappen", "type": "TimePenalty", "timePenaltySeconds": 5, "reason": "Exceeded track limits at Turn 10 on multiple occasions.", "lapNumber": 45, "isServed": true }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "British Grand Prix",
+              "officialName": "Formula 1 British Grand Prix 2026",
+              "shortName": "Silverstone",
+              "slug": "british-grand-prix",
+              "trackLayoutKey": "silverstone-gp",
+              "roundNumber": 12,
+              "status": "Scheduled",
+              "shortDescription": "Home of the very first world championship round, still one of the fastest on the calendar.",
+              "scheduledDistanceMeters": 306198,
+              "isPublished": true,
+              "entries": [
+                { "entryKey": "f1-16", "driverKeys": ["leclerc"] },
+                { "entryKey": "f1-44", "driverKeys": ["hamilton"] },
+                { "entryKey": "f1-1",  "driverKeys": ["verstappen"] },
+                { "entryKey": "f1-4",  "driverKeys": ["norris"] },
+                { "entryKey": "f1-81", "driverKeys": ["piastri"] },
+                { "entryKey": "f1-63", "driverKeys": ["russell"] }
+              ],
+              "sessions": [
+                { "type": "Practice",   "sequenceNumber": 1, "name": "Practice 1",   "scheduledStartUtc": "2026-07-03T11:30:00Z", "scheduledEndUtc": "2026-07-03T12:30:00Z", "scheduledDurationMinutes": 60 },
+                { "type": "Practice",   "sequenceNumber": 2, "name": "Practice 2",   "scheduledStartUtc": "2026-07-03T15:00:00Z", "scheduledEndUtc": "2026-07-03T16:00:00Z", "scheduledDurationMinutes": 60 },
+                { "type": "Practice",   "sequenceNumber": 3, "name": "Practice 3",   "scheduledStartUtc": "2026-07-04T10:30:00Z", "scheduledEndUtc": "2026-07-04T11:30:00Z", "scheduledDurationMinutes": 60 },
+                { "type": "Qualifying", "sequenceNumber": 1, "name": "Qualifying 1", "scheduledStartUtc": "2026-07-04T14:00:00Z", "scheduledEndUtc": "2026-07-04T14:18:00Z", "scheduledDurationMinutes": 18 },
+                { "type": "Qualifying", "sequenceNumber": 2, "name": "Qualifying 2", "scheduledStartUtc": "2026-07-04T14:26:00Z", "scheduledEndUtc": "2026-07-04T14:41:00Z", "scheduledDurationMinutes": 15 },
+                { "type": "Qualifying", "sequenceNumber": 3, "name": "Qualifying 3", "scheduledStartUtc": "2026-07-04T14:49:00Z", "scheduledEndUtc": "2026-07-04T15:01:00Z", "scheduledDurationMinutes": 12 },
+                { "type": "Race",       "sequenceNumber": 1, "name": "Race",         "scheduledStartUtc": "2026-07-05T14:00:00Z", "scheduledEndUtc": "2026-07-05T16:00:00Z", "scheduledLaps": 52, "isPointsScoring": true }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "wec",
+      "name": "FIA World Endurance Championship",
+      "shortName": "WEC",
+      "slug": "wec",
+      "discipline": "Endurance",
+      "sanctioningBody": "FIA / ACO",
+      "description": "Multi-class endurance racing, from six-hour rounds to the 24 Hours of Le Mans.",
+      "primaryColorHex": "#00A0DE",
+      "inauguralYear": 2012,
+      "displayOrder": 2,
+      "vehicleClasses": [
+        { "key": "hypercar", "name": "Hypercar", "shortName": "HY",   "slug": "hypercar", "colorHex": "#E10600", "displayOrder": 1 },
+        { "key": "lmp2",     "name": "LMP2",     "shortName": "LMP2", "slug": "lmp2",     "colorHex": "#0090FF", "displayOrder": 2 },
+        { "key": "lmgt3",    "name": "LMGT3",    "shortName": "GT3",  "slug": "lmgt3",    "colorHex": "#00A651", "displayOrder": 3 }
+      ],
+      "seasons": [
+        {
+          "year": 2026,
+          "name": "2026 FIA World Endurance Championship",
+          "slug": "2026",
+          "status": "InProgress",
+          "startDate": "2026-02-27",
+          "endDate": "2026-11-08",
+          "plannedRoundCount": 8,
+          "pointsSchemes": [
+            {
+              "name": "Le Mans points (double)",
+              "appliesToSessionType": "Race",
+              "championshipType": "Drivers",
+              "polePositionPoints": 1,
+              "minimumDistancePercent": 70,
+              "minimumDriverDistancePercent": 15,
+              "positions": {
+                "1": 38, "2": 27, "3": 23, "4": 20, "5": 18,
+                "6": 15, "7": 12, "8": 9, "9": 6, "10": 4
+              }
+            }
+          ],
+          "entries": [
+            { "key": "wec-6",  "teamKey": "porsche-wec", "carNumber": "6",  "entrantName": "Porsche Penske Motorsport", "vehicleClassKey": "hypercar", "chassisManufacturerKey": "porsche", "chassisModel": "963",       "engineManufacturerKey": "porsche", "tyreSupplierKey": "michelin", "status": "Confirmed" },
+            { "key": "wec-8",  "teamKey": "toyota-wec",  "carNumber": "8",  "entrantName": "Toyota Gazoo Racing",       "vehicleClassKey": "hypercar", "chassisManufacturerKey": "toyota",  "chassisModel": "GR010 Hybrid","engineManufacturerKey": "toyota", "tyreSupplierKey": "michelin", "status": "Confirmed" },
+            { "key": "wec-22", "teamKey": "united-wec",  "carNumber": "22", "entrantName": "United Autosports",         "vehicleClassKey": "lmp2",     "chassisManufacturerKey": "oreca",   "chassisModel": "07",        "engineManufacturerKey": "gibson",  "tyreSupplierKey": "michelin", "status": "Confirmed" }
+          ],
+          "events": [
+            {
+              "name": "24 Hours of Le Mans",
+              "officialName": "94e 24 Heures du Mans",
+              "shortName": "Le Mans",
+              "slug": "24-hours-of-le-mans",
+              "trackLayoutKey": "lemans-24h",
+              "roundNumber": 4,
+              "status": "Completed",
+              "shortDescription": "The most demanding endurance race in the world, run flat out for a full day and night.",
+              "scheduledDurationMinutes": 1440,
+              "isPublished": true,
+              "entries": [
+                { "entryKey": "wec-6",  "driverKeys": ["estre", "vanthoor", "christensen"], "startingGridPosition": 1 },
+                { "entryKey": "wec-8",  "driverKeys": ["buemi", "hartley", "hirakawa"],     "startingGridPosition": 2 },
+                { "entryKey": "wec-22", "driverKeys": ["hanson", "albuquerque", "dilesta"], "startingGridPosition": 3 }
+              ],
+              "sessions": [
+                { "type": "Practice",  "sequenceNumber": 1, "name": "Free Practice 1", "scheduledStartUtc": "2026-06-10T12:00:00Z", "scheduledEndUtc": "2026-06-10T15:00:00Z", "scheduledDurationMinutes": 180, "status": "Finished" },
+                { "type": "Qualifying","sequenceNumber": 1, "name": "Qualifying",      "scheduledStartUtc": "2026-06-10T17:00:00Z", "scheduledEndUtc": "2026-06-10T18:00:00Z", "scheduledDurationMinutes": 60,  "status": "Finished" },
+                { "type": "Hyperpole", "sequenceNumber": 1, "name": "Hyperpole",       "scheduledStartUtc": "2026-06-11T18:00:00Z", "scheduledEndUtc": "2026-06-11T18:30:00Z", "scheduledDurationMinutes": 30,  "status": "Finished" },
+                { "type": "WarmUp",    "sequenceNumber": 1, "name": "Warm Up",         "scheduledStartUtc": "2026-06-13T10:00:00Z", "scheduledEndUtc": "2026-06-13T10:15:00Z", "scheduledDurationMinutes": 15,  "status": "Finished" },
+                {
+                  "type": "Race", "sequenceNumber": 1, "name": "Race",
+                  "scheduledStartUtc": "2026-06-13T14:00:00Z", "scheduledEndUtc": "2026-06-14T14:00:00Z",
+                  "scheduledDurationMinutes": 1440, "status": "Finished", "isPointsScoring": true, "resultsStatus": "Official",
+                  "results": [
+                    { "entryKey": "wec-6",  "driverKeys": ["estre", "vanthoor", "christensen"], "position": 1, "classPosition": 1, "startingPosition": 1, "lapsCompleted": 311, "lapsLed": 180, "totalTimeMs": 86412334, "bestLapTimeMs": 205412, "pitStopCount": 32, "status": "Classified" },
+                    { "entryKey": "wec-8",  "driverKeys": ["buemi", "hartley", "hirakawa"],     "position": 2, "classPosition": 2, "startingPosition": 2, "lapsCompleted": 311, "lapsLed": 120, "gapToLeaderMs": 43221, "bestLapTimeMs": 205118, "isFastestLap": true, "pitStopCount": 32, "status": "Classified" },
+                    { "entryKey": "wec-22", "driverKeys": ["hanson", "albuquerque", "dilesta"], "position": 3, "classPosition": 1, "startingPosition": 3, "lapsCompleted": 296, "gapToLeaderLaps": 15, "bestLapTimeMs": 213890, "pitStopCount": 30, "status": "Classified" }
+                  ],
+                  "laps": [
+                    { "entryKey": "wec-6", "driverKey": "estre",    "lapNumber": 180, "lapTimeMs": 205412, "position": 1, "isPersonalBest": true },
+                    { "entryKey": "wec-8", "driverKey": "hirakawa", "lapNumber": 203, "lapTimeMs": 205118, "position": 2, "isPersonalBest": true, "isSessionBest": true }
+                  ],
+                  "pitStops": [
+                    { "entryKey": "wec-6", "stopNumber": 1,  "lapNumber": 36,  "stationaryTimeMs": 68400, "tyreCompoundFitted": "Medium", "refuelledStop": true, "driverChanged": true, "driverInKey": "vanthoor",    "driverOutKey": "estre" },
+                    { "entryKey": "wec-6", "stopNumber": 2,  "lapNumber": 72,  "stationaryTimeMs": 71200, "tyreCompoundFitted": "Medium", "refuelledStop": true, "driverChanged": true, "driverInKey": "christensen", "driverOutKey": "vanthoor" },
+                    { "entryKey": "wec-8", "stopNumber": 1,  "lapNumber": 38,  "stationaryTimeMs": 69100, "tyreCompoundFitted": "Medium", "refuelledStop": true, "driverChanged": true, "driverInKey": "hartley",     "driverOutKey": "buemi" }
+                  ],
+                  "penalties": [
+                    { "entryKey": "wec-22", "driverKey": "albuquerque", "type": "DriveThrough", "reason": "Unsafe release from the pit lane.", "lapNumber": 112, "isServed": true }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
