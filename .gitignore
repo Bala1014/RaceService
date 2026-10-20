@@ -70,3 +70,7 @@ Thumbs.db
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+# Local secrets. The committed .env.example documents the shape; the real one never lands in git.
+.env
+*.env
+!.env.example

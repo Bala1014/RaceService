@@ -1,0 +1,40 @@
+# Local development stack: Postgres plus the service.
+# Start with:  docker compose up --build
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: raceservice
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - raceservice_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      # The service waits for this rather than racing the database on start-up.
+      test: ["CMD-SHELL", "pg_isready -U postgres -d raceservice"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  raceservice:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5001:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__Postgres: "Host=postgres;Port=5432;Database=raceservice;Username=postgres;Password=postgres"
+      Database__SeedOnStartup: "true"
+      Jwt__Issuer: racingvacing-userservice
+      Jwt__Audience: racingvacing-raceservice
+      Jwt__SigningKey: development-only-signing-key-replace-me-with-32-bytes-minimum
+      Cors__AllowedOrigins__0: http://localhost:3000
+
+volumes:
+  raceservice_pgdata:

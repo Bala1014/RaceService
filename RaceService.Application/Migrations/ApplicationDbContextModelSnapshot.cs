@@ -17,363 +17,3241 @@ namespace RaceService.Application.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.11")
+                .HasDefaultSchema("race")
+                .HasAnnotation("ProductVersion", "10.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("RaceService.Application.Domain.Entities.Driver", b =>
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Catalog.Manufacturer", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
 
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                    b.Property<string>("CountryCode")
+                        .HasMaxLength(3)
+                        .HasColumnType("character(3)")
+                        .HasColumnName("country_code")
+                        .IsFixedLength();
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at_utc");
+
+                    b.Property<Guid?>("CreatedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("created_by_user_id");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_active");
+
+                    b.Property<string>("LogoUrl")
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)")
+                        .HasColumnName("logo_url");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)")
+                        .HasColumnName("name");
 
-                    b.Property<string>("Nationality")
+                    b.Property<string>("Slug")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)")
+                        .HasColumnName("slug");
 
-                    b.Property<int>("Number")
-                        .HasColumnType("integer");
+                    b.Property<bool>("SuppliesChassis")
+                        .HasColumnType("boolean")
+                        .HasColumnName("supplies_chassis");
 
-                    b.Property<int>("RaceWins")
-                        .HasColumnType("integer");
+                    b.Property<bool>("SuppliesEngines")
+                        .HasColumnType("boolean")
+                        .HasColumnName("supplies_engines");
 
-                    b.HasKey("Id");
+                    b.Property<bool>("SuppliesTyres")
+                        .HasColumnType("boolean")
+                        .HasColumnName("supplies_tyres");
 
-                    b.HasIndex("Number");
-
-                    b.ToTable("Driver", (string)null);
-                });
-
-            modelBuilder.Entity("RaceService.Application.Domain.Entities.PastResult", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("RaceId")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("Year")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RaceId", "Year");
-
-                    b.ToTable("PastResult", (string)null);
-                });
-
-            modelBuilder.Entity("RaceService.Application.Domain.Entities.Race", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedAtUTC")
+                    b.Property<DateTime>("UpdatedAtUtc")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("CreatedAt");
+                        .HasColumnName("updated_at_utc");
 
-                    b.Property<int>("Laps")
-                        .HasColumnType("integer");
+                    b.Property<Guid?>("UpdatedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("updated_by_user_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_manufacturer");
+
+                    b.HasIndex("Slug")
+                        .IsUnique()
+                        .HasDatabaseName("ux_manufacturer_slug");
+
+                    b.HasIndex("SuppliesChassis", "IsActive")
+                        .HasDatabaseName("ix_manufacturer_chassis_active");
+
+                    b.HasIndex("SuppliesEngines", "IsActive")
+                        .HasDatabaseName("ix_manufacturer_engines_active");
+
+                    b.ToTable("manufacturer", "race");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Catalog.PointsScheme", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("AppliesToSessionType")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)")
+                        .HasColumnName("applies_to_session_type");
+
+                    b.Property<string>("ChampionshipType")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)")
+                        .HasColumnName("championship_type");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at_utc");
+
+                    b.Property<Guid?>("CreatedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("created_by_user_id");
+
+                    b.Property<int?>("FastestLapMaxPosition")
+                        .HasColumnType("integer")
+                        .HasColumnName("fastest_lap_max_position");
+
+                    b.Property<decimal>("FastestLapPoints")
+                        .HasPrecision(6, 2)
+                        .HasColumnType("numeric(6,2)")
+                        .HasColumnName("fastest_lap_points");
+
+                    b.Property<decimal>("MinimumDistancePercent")
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)")
+                        .HasColumnName("minimum_distance_percent");
+
+                    b.Property<decimal>("MinimumDriverDistancePercent")
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)")
+                        .HasColumnName("minimum_driver_distance_percent");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)")
+                        .HasColumnName("name");
 
-                    b.Property<DateTime>("StartTimeUTC")
+                    b.Property<decimal>("PointsMultiplier")
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(6, 2)
+                        .HasColumnType("numeric(6,2)")
+                        .HasDefaultValue(1m)
+                        .HasColumnName("points_multiplier");
+
+                    b.Property<decimal>("PolePositionPoints")
+                        .HasPrecision(6, 2)
+                        .HasColumnType("numeric(6,2)")
+                        .HasColumnName("pole_position_points");
+
+                    b.Property<Guid>("SeasonId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("season_id");
+
+                    b.Property<DateTime>("UpdatedAtUtc")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("StartTimeUTC");
+                        .HasColumnName("updated_at_utc");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
+                    b.Property<Guid?>("UpdatedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("updated_by_user_id");
 
-                    b.Property<Guid>("TrackId")
-                        .HasColumnType("uuid");
+                    b.HasKey("Id")
+                        .HasName("pk_points_scheme");
 
-                    b.HasKey("Id");
+                    b.HasIndex("SeasonId", "AppliesToSessionType", "ChampionshipType")
+                        .IsUnique()
+                        .HasDatabaseName("ux_points_scheme_season_session_championship");
 
-                    b.HasIndex("StartTimeUTC");
-
-                    b.HasIndex("TrackId");
-
-                    b.HasIndex("Status", "StartTimeUTC");
-
-                    b.ToTable("Race", (string)null);
+                    b.ToTable("points_scheme", "race");
                 });
 
-            modelBuilder.Entity("RaceService.Application.Domain.Entities.RaceEntry", b =>
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Catalog.PointsSchemeEntry", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
 
-                    b.Property<string>("CarClass")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                    b.Property<decimal>("Points")
+                        .HasPrecision(6, 2)
+                        .HasColumnType("numeric(6,2)")
+                        .HasColumnName("points");
 
-                    b.Property<string>("CarManufacturer")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<string>("CarModel")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<string>("PUManufacturer")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<string>("RaceEntryName")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
-                    b.Property<Guid>("RaceId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("SeriesType")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RaceId");
-
-                    b.ToTable("RaceEntry", (string)null);
-                });
-
-            modelBuilder.Entity("RaceService.Application.Domain.Entities.RaceEntryDriver", b =>
-                {
-                    b.Property<Guid>("RaceEntryId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("DriverId")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("Role")
-                        .HasColumnType("integer");
-
-                    b.HasKey("RaceEntryId", "DriverId");
-
-                    b.HasIndex("DriverId");
-
-                    b.HasIndex("RaceEntryId", "Role")
-                        .IsUnique();
-
-                    b.ToTable("RaceEntryDriver", (string)null);
-                });
-
-            modelBuilder.Entity("RaceService.Application.Domain.Entities.RaceResult", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<TimeSpan>("BestLapTime")
-                        .HasColumnType("interval");
-
-                    b.Property<Guid>("DriverId")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("LapsCompleted")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("PastResultId")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("Points")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("PointsSchemeId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("points_scheme_id");
 
                     b.Property<int>("Position")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("position");
 
-                    b.Property<Guid>("RaceEntryId")
-                        .HasColumnType("uuid");
+                    b.HasKey("Id")
+                        .HasName("pk_points_scheme_entry");
 
-                    b.Property<int>("StartingPosition")
-                        .HasColumnType("integer");
+                    b.HasIndex("PointsSchemeId", "Position")
+                        .IsUnique()
+                        .HasDatabaseName("ux_points_scheme_entry_scheme_position");
 
-                    b.Property<TimeSpan>("TotalTime")
-                        .HasColumnType("interval");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DriverId");
-
-                    b.HasIndex("RaceEntryId");
-
-                    b.HasIndex("PastResultId", "Position");
-
-                    b.ToTable("RaceResult", (string)null);
+                    b.ToTable("points_scheme_entry", "race", t =>
+                        {
+                            t.HasCheckConstraint("ck_points_scheme_entry_position_positive", "position >= 1");
+                        });
                 });
 
-            modelBuilder.Entity("RaceService.Application.Domain.Entities.Track", b =>
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Catalog.Season", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
 
-                    b.Property<TimeSpan?>("BestLapTime")
-                        .HasColumnType("interval");
+                    b.Property<string>("BannerImageUrl")
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)")
+                        .HasColumnName("banner_image_url");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at_utc");
+
+                    b.Property<Guid?>("CreatedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("created_by_user_id");
+
+                    b.Property<DateTime?>("DeletedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("deleted_at_utc");
+
+                    b.Property<Guid?>("DeletedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("deleted_by_user_id");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(4000)
+                        .HasColumnType("character varying(4000)")
+                        .HasColumnName("description");
+
+                    b.Property<int>("DroppedScoresCount")
+                        .HasColumnType("integer")
+                        .HasColumnName("dropped_scores_count");
+
+                    b.Property<DateOnly?>("EndDate")
+                        .HasColumnType("date")
+                        .HasColumnName("end_date");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_deleted");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)")
+                        .HasColumnName("name");
+
+                    b.Property<int?>("PlannedRoundCount")
+                        .HasColumnType("integer")
+                        .HasColumnName("planned_round_count");
+
+                    b.Property<Guid>("SeriesId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("series_id");
+
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("character varying(120)")
+                        .HasColumnName("slug");
+
+                    b.Property<DateOnly?>("StartDate")
+                        .HasColumnType("date")
+                        .HasColumnName("start_date");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)")
+                        .HasColumnName("status");
+
+                    b.Property<DateTime>("UpdatedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at_utc");
+
+                    b.Property<Guid?>("UpdatedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("updated_by_user_id");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("integer")
+                        .HasColumnName("year");
+
+                    b.HasKey("Id")
+                        .HasName("pk_season");
+
+                    b.HasIndex("SeriesId", "Slug")
+                        .IsUnique()
+                        .HasDatabaseName("ux_season_series_slug")
+                        .HasFilter("is_deleted = false");
+
+                    b.HasIndex("SeriesId", "Year")
+                        .IsUnique()
+                        .HasDatabaseName("ux_season_series_year")
+                        .HasFilter("is_deleted = false");
+
+                    b.HasIndex("Status", "Year")
+                        .HasDatabaseName("ix_season_status_year")
+                        .HasFilter("is_deleted = false");
+
+                    b.ToTable("season", "race", t =>
+                        {
+                            t.HasCheckConstraint("ck_season_date_order", "start_date is null or end_date is null or start_date <= end_date");
+
+                            t.HasCheckConstraint("ck_season_year_range", "year between 1894 and 2200");
+                        });
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Catalog.Series", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at_utc");
+
+                    b.Property<Guid?>("CreatedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("created_by_user_id");
+
+                    b.Property<DateTime?>("DeletedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("deleted_at_utc");
+
+                    b.Property<Guid?>("DeletedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("deleted_by_user_id");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(4000)
+                        .HasColumnType("character varying(4000)")
+                        .HasColumnName("description");
+
+                    b.Property<string>("Discipline")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)")
+                        .HasColumnName("discipline");
+
+                    b.Property<int>("DisplayOrder")
+                        .HasColumnType("integer")
+                        .HasColumnName("display_order");
+
+                    b.Property<int?>("InauguralYear")
+                        .HasColumnType("integer")
+                        .HasColumnName("inaugural_year");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_active");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_deleted");
+
+                    b.Property<string>("LogoUrl")
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)")
+                        .HasColumnName("logo_url");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("name");
+
+                    b.Property<string>("PrimaryColorHex")
+                        .HasMaxLength(9)
+                        .HasColumnType("character varying(9)")
+                        .HasColumnName("primary_color_hex");
+
+                    b.Property<string>("SanctioningBody")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("sanctioning_body");
+
+                    b.Property<string>("ShortName")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)")
+                        .HasColumnName("short_name");
+
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("character varying(120)")
+                        .HasColumnName("slug");
+
+                    b.Property<DateTime>("UpdatedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at_utc");
+
+                    b.Property<Guid?>("UpdatedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("updated_by_user_id");
+
+                    b.Property<string>("WebsiteUrl")
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)")
+                        .HasColumnName("website_url");
+
+                    b.HasKey("Id")
+                        .HasName("pk_series");
+
+                    b.HasIndex("Slug")
+                        .IsUnique()
+                        .HasDatabaseName("ux_series_slug")
+                        .HasFilter("is_deleted = false");
+
+                    b.HasIndex("IsActive", "Discipline", "DisplayOrder")
+                        .HasDatabaseName("ix_series_active_discipline_order")
+                        .HasFilter("is_deleted = false");
+
+                    b.ToTable("series", "race");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Catalog.VehicleClass", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("ColorHex")
+                        .HasMaxLength(9)
+                        .HasColumnType("character varying(9)")
+                        .HasColumnName("color_hex");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at_utc");
+
+                    b.Property<Guid?>("CreatedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("created_by_user_id");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(2000)
+                        .HasColumnType("character varying(2000)")
+                        .HasColumnName("description");
+
+                    b.Property<int>("DisplayOrder")
+                        .HasColumnType("integer")
+                        .HasColumnName("display_order");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_active");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("character varying(120)")
+                        .HasColumnName("name");
+
+                    b.Property<Guid?>("SeriesId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("series_id");
+
+                    b.Property<string>("ShortName")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)")
+                        .HasColumnName("short_name");
+
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("character varying(120)")
+                        .HasColumnName("slug");
+
+                    b.Property<DateTime>("UpdatedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at_utc");
+
+                    b.Property<Guid?>("UpdatedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("updated_by_user_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_vehicle_class");
+
+                    b.HasIndex("Slug")
+                        .IsUnique()
+                        .HasDatabaseName("ux_vehicle_class_global_slug")
+                        .HasFilter("series_id is null");
+
+                    b.HasIndex("SeriesId", "DisplayOrder")
+                        .HasDatabaseName("ix_vehicle_class_series_order");
+
+                    b.HasIndex("SeriesId", "Slug")
+                        .IsUnique()
+                        .HasDatabaseName("ux_vehicle_class_series_slug")
+                        .HasFilter("series_id is not null");
+
+                    b.ToTable("vehicle_class", "race");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Competitors.Driver", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Abbreviation")
+                        .HasMaxLength(5)
+                        .HasColumnType("character varying(5)")
+                        .HasColumnName("abbreviation")
+                        .IsFixedLength(false);
+
+                    b.Property<string>("Biography")
+                        .HasMaxLength(8000)
+                        .HasColumnType("character varying(8000)")
+                        .HasColumnName("biography");
+
+                    b.Property<string>("CountryCode")
+                        .HasMaxLength(3)
+                        .HasColumnType("character(3)")
+                        .HasColumnName("country_code")
+                        .IsFixedLength();
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at_utc");
+
+                    b.Property<Guid?>("CreatedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("created_by_user_id");
+
+                    b.Property<DateOnly?>("DateOfBirth")
+                        .HasColumnType("date")
+                        .HasColumnName("date_of_birth");
+
+                    b.Property<DateOnly?>("DateOfDeath")
+                        .HasColumnType("date")
+                        .HasColumnName("date_of_death");
+
+                    b.Property<DateTime?>("DeletedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("deleted_at_utc");
+
+                    b.Property<Guid?>("DeletedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("deleted_by_user_id");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("first_name");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("full_name");
+
+                    b.Property<string>("HeadshotUrl")
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)")
+                        .HasColumnName("headshot_url");
+
+                    b.Property<string>("ImageUrl")
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)")
+                        .HasColumnName("image_url");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_active");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_deleted");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("last_name");
+
+                    b.Property<string>("Nationality")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("nationality");
+
+                    b.Property<int?>("PermanentNumber")
+                        .HasColumnType("integer")
+                        .HasColumnName("permanent_number");
+
+                    b.Property<string>("PlaceOfBirth")
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)")
+                        .HasColumnName("place_of_birth");
+
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)")
+                        .HasColumnName("slug");
+
+                    b.Property<DateTime>("UpdatedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at_utc");
+
+                    b.Property<Guid?>("UpdatedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("updated_by_user_id");
+
+                    b.Property<string>("WebsiteUrl")
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)")
+                        .HasColumnName("website_url");
+
+                    b.HasKey("Id")
+                        .HasName("pk_driver");
+
+                    b.HasIndex("FullName")
+                        .HasDatabaseName("ix_driver_full_name")
+                        .HasFilter("is_deleted = false");
+
+                    b.HasIndex("PermanentNumber")
+                        .HasDatabaseName("ix_driver_permanent_number")
+                        .HasFilter("permanent_number is not null and is_deleted = false");
+
+                    b.HasIndex("Slug")
+                        .IsUnique()
+                        .HasDatabaseName("ux_driver_slug")
+                        .HasFilter("is_deleted = false");
+
+                    b.HasIndex("IsActive", "LastName")
+                        .HasDatabaseName("ix_driver_active_last_name")
+                        .HasFilter("is_deleted = false");
+
+                    b.ToTable("driver", "race");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Competitors.DriverCareerStat", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<int?>("BestFinishPosition")
+                        .HasColumnType("integer")
+                        .HasColumnName("best_finish_position");
+
+                    b.Property<decimal>("CareerPoints")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("numeric(10,2)")
+                        .HasColumnName("career_points");
+
+                    b.Property<int>("ChampionshipsWon")
+                        .HasColumnType("integer")
+                        .HasColumnName("championships_won");
+
+                    b.Property<Guid>("DriverId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("driver_id");
+
+                    b.Property<int>("FastestLaps")
+                        .HasColumnType("integer")
+                        .HasColumnName("fastest_laps");
+
+                    b.Property<int?>("FirstSeasonYear")
+                        .HasColumnType("integer")
+                        .HasColumnName("first_season_year");
+
+                    b.Property<int>("LapsCompleted")
+                        .HasColumnType("integer")
+                        .HasColumnName("laps_completed");
+
+                    b.Property<int>("LapsLed")
+                        .HasColumnType("integer")
+                        .HasColumnName("laps_led");
+
+                    b.Property<int?>("LastSeasonYear")
+                        .HasColumnType("integer")
+                        .HasColumnName("last_season_year");
+
+                    b.Property<int>("Podiums")
+                        .HasColumnType("integer")
+                        .HasColumnName("podiums");
+
+                    b.Property<int>("PolePositions")
+                        .HasColumnType("integer")
+                        .HasColumnName("pole_positions");
+
+                    b.Property<DateTime>("RecalculatedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("recalculated_at_utc");
+
+                    b.Property<int>("Retirements")
+                        .HasColumnType("integer")
+                        .HasColumnName("retirements");
+
+                    b.Property<Guid?>("SeriesId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("series_id");
+
+                    b.Property<int>("Starts")
+                        .HasColumnType("integer")
+                        .HasColumnName("starts");
+
+                    b.Property<int>("Wins")
+                        .HasColumnType("integer")
+                        .HasColumnName("wins");
+
+                    b.HasKey("Id")
+                        .HasName("pk_driver_career_stat");
+
+                    b.HasIndex("DriverId")
+                        .IsUnique()
+                        .HasDatabaseName("ux_driver_career_stat_driver_overall")
+                        .HasFilter("series_id is null");
+
+                    b.HasIndex("DriverId", "SeriesId")
+                        .IsUnique()
+                        .HasDatabaseName("ux_driver_career_stat_driver_series")
+                        .HasFilter("series_id is not null");
+
+                    b.HasIndex("SeriesId", "Wins")
+                        .IsDescending(false, true)
+                        .HasDatabaseName("ix_driver_career_stat_series_wins");
+
+                    b.ToTable("driver_career_stat", "race");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Competitors.Entry", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("CarNumber")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)")
+                        .HasColumnName("car_number");
+
+                    b.Property<Guid?>("ChassisManufacturerId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("chassis_manufacturer_id");
+
+                    b.Property<string>("ChassisModel")
+                        .HasMaxLength(120)
+                        .HasColumnType("character varying(120)")
+                        .HasColumnName("chassis_model");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at_utc");
+
+                    b.Property<Guid?>("CreatedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("created_by_user_id");
+
+                    b.Property<DateTime?>("DeletedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("deleted_at_utc");
+
+                    b.Property<Guid?>("DeletedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("deleted_by_user_id");
+
+                    b.Property<Guid?>("EngineManufacturerId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("engine_manufacturer_id");
+
+                    b.Property<string>("EngineModel")
+                        .HasMaxLength(120)
+                        .HasColumnType("character varying(120)")
+                        .HasColumnName("engine_model");
+
+                    b.Property<string>("EntrantName")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)")
+                        .HasColumnName("entrant_name");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_deleted");
+
+                    b.Property<bool>("IsEligibleForPoints")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_eligible_for_points");
+
+                    b.Property<string>("LiveryImageUrl")
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)")
+                        .HasColumnName("livery_image_url");
+
+                    b.Property<string>("PrimaryColorHex")
+                        .HasMaxLength(9)
+                        .HasColumnType("character varying(9)")
+                        .HasColumnName("primary_color_hex");
+
+                    b.Property<Guid>("SeasonId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("season_id");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)")
+                        .HasColumnName("status");
+
+                    b.Property<Guid?>("SubmittedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("submitted_by_user_id");
+
+                    b.Property<Guid>("TeamId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("team_id");
+
+                    b.Property<Guid?>("TyreSupplierId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("tyre_supplier_id");
+
+                    b.Property<DateTime>("UpdatedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at_utc");
+
+                    b.Property<Guid?>("UpdatedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("updated_by_user_id");
+
+                    b.Property<Guid?>("VehicleClassId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("vehicle_class_id");
+
+                    b.Property<uint>("Version")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("xid")
+                        .HasColumnName("xmin");
+
+                    b.HasKey("Id")
+                        .HasName("pk_entry");
+
+                    b.HasIndex("ChassisManufacturerId")
+                        .HasDatabaseName("ix_entry_chassis_manufacturer_id");
+
+                    b.HasIndex("EngineManufacturerId")
+                        .HasDatabaseName("ix_entry_engine_manufacturer_id");
+
+                    b.HasIndex("SubmittedByUserId")
+                        .HasDatabaseName("ix_entry_submitted_by_user")
+                        .HasFilter("submitted_by_user_id is not null");
+
+                    b.HasIndex("TyreSupplierId")
+                        .HasDatabaseName("ix_entry_tyre_supplier_id");
+
+                    b.HasIndex("VehicleClassId")
+                        .HasDatabaseName("ix_entry_vehicle_class_id");
+
+                    b.HasIndex("SeasonId", "CarNumber")
+                        .IsUnique()
+                        .HasDatabaseName("ux_entry_season_car_number")
+                        .HasFilter("is_deleted = false and status <> 'Withdrawn'");
+
+                    b.HasIndex("TeamId", "SeasonId")
+                        .HasDatabaseName("ix_entry_team_season")
+                        .HasFilter("is_deleted = false");
+
+                    b.HasIndex("SeasonId", "VehicleClassId", "CarNumber")
+                        .HasDatabaseName("ix_entry_season_class_number")
+                        .HasFilter("is_deleted = false");
+
+                    b.ToTable("entry", "race");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Competitors.EventEntry", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("CarNumberOverride")
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)")
+                        .HasColumnName("car_number_override");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at_utc");
+
+                    b.Property<Guid?>("CreatedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("created_by_user_id");
+
+                    b.Property<Guid>("EntryId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("entry_id");
+
+                    b.Property<bool>("IsEligibleForPoints")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_eligible_for_points");
+
+                    b.Property<Guid>("RaceEventId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("race_event_id");
+
+                    b.Property<int?>("StartingGridPosition")
+                        .HasColumnType("integer")
+                        .HasColumnName("starting_grid_position");
+
+                    b.Property<bool>("StartsFromPitLane")
+                        .HasColumnType("boolean")
+                        .HasColumnName("starts_from_pit_lane");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)")
+                        .HasColumnName("status");
+
+                    b.Property<string>("StatusNote")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)")
+                        .HasColumnName("status_note");
+
+                    b.Property<DateTime>("UpdatedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at_utc");
+
+                    b.Property<Guid?>("UpdatedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("updated_by_user_id");
+
+                    b.Property<uint>("Version")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("xid")
+                        .HasColumnName("xmin");
+
+                    b.HasKey("Id")
+                        .HasName("pk_event_entry");
+
+                    b.HasIndex("EntryId")
+                        .HasDatabaseName("ix_event_entry_entry");
+
+                    b.HasIndex("RaceEventId", "EntryId")
+                        .IsUnique()
+                        .HasDatabaseName("ux_event_entry_event_entry");
+
+                    b.HasIndex("RaceEventId", "StartingGridPosition")
+                        .HasDatabaseName("ix_event_entry_event_grid")
+                        .HasFilter("starting_grid_position is not null");
+
+                    b.HasIndex("RaceEventId", "Status")
+                        .HasDatabaseName("ix_event_entry_event_status");
+
+                    b.ToTable("event_entry", "race", t =>
+                        {
+                            t.HasCheckConstraint("ck_event_entry_grid_positive", "starting_grid_position is null or starting_grid_position >= 1");
+                        });
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Competitors.EventEntryDriver", b =>
+                {
+                    b.Property<Guid>("EventEntryId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("event_entry_id");
+
+                    b.Property<Guid>("DriverId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("driver_id");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at_utc");
+
+                    b.Property<string>("Grade")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)")
+                        .HasColumnName("grade");
+
+                    b.Property<bool>("IsStartingDriver")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_starting_driver");
+
+                    b.Property<int>("LineupPosition")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasDefaultValue(1)
+                        .HasColumnName("lineup_position");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)")
+                        .HasColumnName("role");
+
+                    b.HasKey("EventEntryId", "DriverId")
+                        .HasName("pk_event_entry_driver");
+
+                    b.HasIndex("DriverId")
+                        .HasDatabaseName("ix_event_entry_driver_driver");
+
+                    b.HasIndex("EventEntryId")
+                        .IsUnique()
+                        .HasDatabaseName("ux_event_entry_driver_single_starter")
+                        .HasFilter("is_starting_driver = true");
+
+                    b.HasIndex("EventEntryId", "LineupPosition")
+                        .IsUnique()
+                        .HasDatabaseName("ux_event_entry_driver_lineup_position");
+
+                    b.ToTable("event_entry_driver", "race", t =>
+                        {
+                            t.HasCheckConstraint("ck_event_entry_driver_lineup_positive", "lineup_position >= 1");
+                        });
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Competitors.Team", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("BaseCity")
+                        .HasMaxLength(120)
+                        .HasColumnType("character varying(120)")
+                        .HasColumnName("base_city");
+
+                    b.Property<string>("BaseCountry")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("base_country");
+
+                    b.Property<string>("CountryCode")
+                        .HasMaxLength(3)
+                        .HasColumnType("character(3)")
+                        .HasColumnName("country_code")
+                        .IsFixedLength();
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at_utc");
+
+                    b.Property<Guid?>("CreatedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("created_by_user_id");
+
+                    b.Property<DateTime?>("DeletedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("deleted_at_utc");
+
+                    b.Property<Guid?>("DeletedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("deleted_by_user_id");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(4000)
+                        .HasColumnType("character varying(4000)")
+                        .HasColumnName("description");
+
+                    b.Property<int?>("FoundedYear")
+                        .HasColumnType("integer")
+                        .HasColumnName("founded_year");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_active");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_deleted");
+
+                    b.Property<string>("LogoUrl")
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)")
+                        .HasColumnName("logo_url");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("name");
+
+                    b.Property<string>("OfficialName")
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("official_name");
+
+                    b.Property<string>("PrimaryColorHex")
+                        .HasMaxLength(9)
+                        .HasColumnType("character varying(9)")
+                        .HasColumnName("primary_color_hex");
+
+                    b.Property<string>("ShortName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("short_name");
+
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)")
+                        .HasColumnName("slug");
+
+                    b.Property<DateTime>("UpdatedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at_utc");
+
+                    b.Property<Guid?>("UpdatedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("updated_by_user_id");
+
+                    b.Property<string>("WebsiteUrl")
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)")
+                        .HasColumnName("website_url");
+
+                    b.HasKey("Id")
+                        .HasName("pk_team");
+
+                    b.HasIndex("Name")
+                        .HasDatabaseName("ix_team_name")
+                        .HasFilter("is_deleted = false");
+
+                    b.HasIndex("Slug")
+                        .IsUnique()
+                        .HasDatabaseName("ux_team_slug")
+                        .HasFilter("is_deleted = false");
+
+                    b.ToTable("team", "race");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Events.RaceEvent", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("BannerImageUrl")
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)")
+                        .HasColumnName("banner_image_url");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at_utc");
+
+                    b.Property<Guid?>("CreatedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("created_by_user_id");
+
+                    b.Property<DateTime?>("DeletedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("deleted_at_utc");
+
+                    b.Property<Guid?>("DeletedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("deleted_by_user_id");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(8000)
+                        .HasColumnType("character varying(8000)")
+                        .HasColumnName("description");
+
+                    b.Property<DateTime>("EndTimeUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("end_time_utc");
+
+                    b.Property<bool>("HasSprint")
+                        .HasColumnType("boolean")
+                        .HasColumnName("has_sprint");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_deleted");
+
+                    b.Property<bool>("IsNonChampionship")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_non_championship");
+
+                    b.Property<bool>("IsPublished")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_published");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("name");
+
+                    b.Property<string>("OfficialName")
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("official_name");
+
+                    b.Property<string>("PosterImageUrl")
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)")
+                        .HasColumnName("poster_image_url");
+
+                    b.Property<Guid?>("PreviousEditionId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("previous_edition_id");
+
+                    b.Property<DateTime?>("PublishedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("published_at_utc");
+
+                    b.Property<int?>("RoundNumber")
+                        .HasColumnType("integer")
+                        .HasColumnName("round_number");
+
+                    b.Property<int?>("ScheduledDistanceMeters")
+                        .HasColumnType("integer")
+                        .HasColumnName("scheduled_distance_meters");
+
+                    b.Property<int?>("ScheduledDurationMinutes")
+                        .HasColumnType("integer")
+                        .HasColumnName("scheduled_duration_minutes");
+
+                    b.Property<Guid>("SeasonId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("season_id");
+
+                    b.Property<string>("ShortDescription")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)")
+                        .HasColumnName("short_description");
+
+                    b.Property<string>("ShortName")
+                        .HasMaxLength(60)
+                        .HasColumnType("character varying(60)")
+                        .HasColumnName("short_name");
+
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)")
+                        .HasColumnName("slug");
+
+                    b.Property<DateTime>("StartTimeUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("start_time_utc");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)")
+                        .HasColumnName("status");
+
+                    b.Property<string>("TimeZoneId")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(80)
+                        .HasColumnType("character varying(80)")
+                        .HasDefaultValue("UTC")
+                        .HasColumnName("time_zone_id");
+
+                    b.Property<Guid>("TrackLayoutId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("track_layout_id");
+
+                    b.Property<DateTime>("UpdatedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at_utc");
+
+                    b.Property<Guid?>("UpdatedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("updated_by_user_id");
+
+                    b.Property<uint>("Version")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("xid")
+                        .HasColumnName("xmin");
+
+                    b.HasKey("Id")
+                        .HasName("pk_race_event");
+
+                    b.HasIndex("PreviousEditionId")
+                        .HasDatabaseName("ix_race_event_previous_edition_id");
+
+                    b.HasIndex("IsPublished", "StartTimeUtc")
+                        .HasDatabaseName("ix_race_event_published_start")
+                        .HasFilter("is_deleted = false");
+
+                    b.HasIndex("SeasonId", "RoundNumber")
+                        .IsUnique()
+                        .HasDatabaseName("ux_race_event_season_round")
+                        .HasFilter("is_deleted = false and round_number is not null");
+
+                    b.HasIndex("SeasonId", "Slug")
+                        .IsUnique()
+                        .HasDatabaseName("ux_race_event_season_slug")
+                        .HasFilter("is_deleted = false");
+
+                    b.HasIndex("SeasonId", "StartTimeUtc")
+                        .HasDatabaseName("ix_race_event_season_start")
+                        .HasFilter("is_deleted = false");
+
+                    b.HasIndex("Status", "StartTimeUtc")
+                        .HasDatabaseName("ix_race_event_status_start")
+                        .HasFilter("is_deleted = false");
+
+                    b.HasIndex("TrackLayoutId", "StartTimeUtc")
+                        .HasDatabaseName("ix_race_event_layout_start")
+                        .HasFilter("is_deleted = false");
+
+                    b.ToTable("race_event", "race", t =>
+                        {
+                            t.HasCheckConstraint("ck_race_event_round_positive", "round_number is null or round_number >= 1");
+
+                            t.HasCheckConstraint("ck_race_event_time_order", "end_time_utc >= start_time_utc");
+                        });
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Events.Session", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime?>("ActualEndUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("actual_end_utc");
+
+                    b.Property<DateTime?>("ActualStartUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("actual_start_utc");
+
+                    b.Property<decimal?>("AirTemperatureC")
+                        .HasPrecision(4, 1)
+                        .HasColumnType("numeric(4,1)")
+                        .HasColumnName("air_temperature_c");
+
+                    b.Property<int?>("CompletedLaps")
+                        .HasColumnType("integer")
+                        .HasColumnName("completed_laps");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at_utc");
+
+                    b.Property<Guid?>("CreatedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("created_by_user_id");
+
+                    b.Property<decimal?>("HumidityPercent")
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)")
+                        .HasColumnName("humidity_percent");
+
+                    b.Property<bool>("IsPointsScoring")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_points_scoring");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("character varying(120)")
+                        .HasColumnName("name");
+
+                    b.Property<Guid>("RaceEventId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("race_event_id");
+
+                    b.Property<int?>("RedFlagCount")
+                        .HasColumnType("integer")
+                        .HasColumnName("red_flag_count");
+
+                    b.Property<DateTime?>("ResultsPublishedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("results_published_at_utc");
+
+                    b.Property<string>("ResultsStatus")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)")
+                        .HasColumnName("results_status");
+
+                    b.Property<int?>("SafetyCarCount")
+                        .HasColumnType("integer")
+                        .HasColumnName("safety_car_count");
+
+                    b.Property<int?>("ScheduledDurationMinutes")
+                        .HasColumnType("integer")
+                        .HasColumnName("scheduled_duration_minutes");
+
+                    b.Property<DateTime?>("ScheduledEndUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("scheduled_end_utc");
+
+                    b.Property<int?>("ScheduledLaps")
+                        .HasColumnType("integer")
+                        .HasColumnName("scheduled_laps");
+
+                    b.Property<DateTime>("ScheduledStartUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("scheduled_start_utc");
+
+                    b.Property<int>("SequenceNumber")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasDefaultValue(1)
+                        .HasColumnName("sequence_number");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)")
+                        .HasColumnName("status");
+
+                    b.Property<string>("StatusNote")
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)")
+                        .HasColumnName("status_note");
+
+                    b.Property<decimal?>("TrackTemperatureC")
+                        .HasPrecision(4, 1)
+                        .HasColumnType("numeric(4,1)")
+                        .HasColumnName("track_temperature_c");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)")
+                        .HasColumnName("type");
+
+                    b.Property<DateTime>("UpdatedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at_utc");
+
+                    b.Property<Guid?>("UpdatedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("updated_by_user_id");
+
+                    b.Property<uint>("Version")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("xid")
+                        .HasColumnName("xmin");
+
+                    b.Property<string>("WeatherSummary")
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("weather_summary");
+
+                    b.Property<int>("WeekendOrder")
+                        .HasColumnType("integer")
+                        .HasColumnName("weekend_order");
+
+                    b.HasKey("Id")
+                        .HasName("pk_session");
+
+                    b.HasIndex("ScheduledStartUtc")
+                        .HasDatabaseName("ix_session_scheduled_start");
+
+                    b.HasIndex("RaceEventId", "WeekendOrder")
+                        .HasDatabaseName("ix_session_event_order");
+
+                    b.HasIndex("ResultsStatus", "ScheduledStartUtc")
+                        .HasDatabaseName("ix_session_results_status_start");
+
+                    b.HasIndex("Status", "ScheduledStartUtc")
+                        .HasDatabaseName("ix_session_status_scheduled_start");
+
+                    b.HasIndex("RaceEventId", "Type", "SequenceNumber")
+                        .IsUnique()
+                        .HasDatabaseName("ux_session_event_type_sequence");
+
+                    b.ToTable("session", "race", t =>
+                        {
+                            t.HasCheckConstraint("ck_session_actual_time_order", "actual_end_utc is null or actual_start_utc is null or actual_end_utc >= actual_start_utc");
+
+                            t.HasCheckConstraint("ck_session_scheduled_time_order", "scheduled_end_utc is null or scheduled_end_utc >= scheduled_start_utc");
+
+                            t.HasCheckConstraint("ck_session_sequence_positive", "sequence_number >= 1");
+                        });
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Integration.ExternalReference", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("EntityType")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("character varying(60)")
+                        .HasColumnName("entity_type");
+
+                    b.Property<string>("ExternalId")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("external_id");
+
+                    b.Property<Guid>("InternalId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("internal_id");
+
+                    b.Property<string>("LastPayloadJson")
+                        .HasMaxLength(512)
+                        .HasColumnType("jsonb")
+                        .HasColumnName("last_payload_json");
+
+                    b.Property<DateTime>("LastSyncedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("last_synced_at_utc");
+
+                    b.Property<string>("PayloadHash")
+                        .HasMaxLength(64)
+                        .HasColumnType("character varying(64)")
+                        .HasColumnName("payload_hash");
+
+                    b.Property<string>("Provider")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("character varying(60)")
+                        .HasColumnName("provider");
+
+                    b.HasKey("Id")
+                        .HasName("pk_external_reference");
+
+                    b.HasIndex("EntityType", "InternalId")
+                        .HasDatabaseName("ix_external_reference_type_internal");
+
+                    b.HasIndex("Provider", "EntityType", "ExternalId")
+                        .IsUnique()
+                        .HasDatabaseName("ux_external_reference_provider_type_external");
+
+                    b.ToTable("external_reference", "race");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Integration.ImportRun", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime?>("CompletedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("completed_at_utc");
+
+                    b.Property<string>("CorrelationId")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("correlation_id");
+
+                    b.Property<string>("ErrorMessage")
+                        .HasMaxLength(4000)
+                        .HasColumnType("character varying(4000)")
+                        .HasColumnName("error_message");
+
+                    b.Property<string>("Provider")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("character varying(60)")
+                        .HasColumnName("provider");
+
+                    b.Property<int>("RecordsCreated")
+                        .HasColumnType("integer")
+                        .HasColumnName("records_created");
+
+                    b.Property<int>("RecordsFailed")
+                        .HasColumnType("integer")
+                        .HasColumnName("records_failed");
+
+                    b.Property<int>("RecordsRead")
+                        .HasColumnType("integer")
+                        .HasColumnName("records_read");
+
+                    b.Property<int>("RecordsSkipped")
+                        .HasColumnType("integer")
+                        .HasColumnName("records_skipped");
+
+                    b.Property<int>("RecordsUpdated")
+                        .HasColumnType("integer")
+                        .HasColumnName("records_updated");
+
+                    b.Property<string>("Resource")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("character varying(60)")
+                        .HasColumnName("resource");
+
+                    b.Property<DateTime>("StartedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("started_at_utc");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)")
+                        .HasColumnName("status");
+
+                    b.Property<Guid?>("TriggeredByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("triggered_by_user_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_import_run");
+
+                    b.HasIndex("Status")
+                        .HasDatabaseName("ix_import_run_in_progress")
+                        .HasFilter("status = 'Running'");
+
+                    b.HasIndex("Provider", "Resource", "StartedAtUtc")
+                        .IsDescending(false, false, true)
+                        .HasDatabaseName("ix_import_run_provider_resource_started");
+
+                    b.ToTable("import_run", "race");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Results.Penalty", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<Guid?>("AppliedToSessionId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("applied_to_session_id");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at_utc");
+
+                    b.Property<Guid?>("CreatedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("created_by_user_id");
+
+                    b.Property<Guid?>("DriverId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("driver_id");
+
+                    b.Property<Guid>("EventEntryId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("event_entry_id");
+
+                    b.Property<decimal?>("FineAmount")
+                        .HasPrecision(12, 2)
+                        .HasColumnType("numeric(12,2)")
+                        .HasColumnName("fine_amount");
+
+                    b.Property<string>("FineCurrency")
+                        .HasMaxLength(3)
+                        .HasColumnType("character(3)")
+                        .HasColumnName("fine_currency")
+                        .IsFixedLength();
+
+                    b.Property<int?>("GridPositionDrop")
+                        .HasColumnType("integer")
+                        .HasColumnName("grid_position_drop");
+
+                    b.Property<bool>("IsRescinded")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_rescinded");
+
+                    b.Property<bool>("IsServed")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_served");
+
+                    b.Property<DateTime?>("IssuedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("issued_at_utc");
+
+                    b.Property<int?>("LapNumber")
+                        .HasColumnType("integer")
+                        .HasColumnName("lap_number");
+
+                    b.Property<int?>("LicencePoints")
+                        .HasColumnType("integer")
+                        .HasColumnName("licence_points");
+
+                    b.Property<string>("Reason")
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)")
+                        .HasColumnName("reason");
+
+                    b.Property<Guid>("SessionId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("session_id");
+
+                    b.Property<int?>("TimePenaltySeconds")
+                        .HasColumnType("integer")
+                        .HasColumnName("time_penalty_seconds");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)")
+                        .HasColumnName("type");
+
+                    b.Property<DateTime>("UpdatedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at_utc");
+
+                    b.Property<Guid?>("UpdatedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("updated_by_user_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_penalty");
+
+                    b.HasIndex("EventEntryId")
+                        .HasDatabaseName("ix_penalty_event_entry_id");
+
+                    b.HasIndex("AppliedToSessionId", "IsServed")
+                        .HasDatabaseName("ix_penalty_applied_session_served")
+                        .HasFilter("applied_to_session_id is not null");
+
+                    b.HasIndex("DriverId", "IssuedAtUtc")
+                        .HasDatabaseName("ix_penalty_driver_issued")
+                        .HasFilter("driver_id is not null and is_rescinded = false");
+
+                    b.HasIndex("SessionId", "EventEntryId")
+                        .HasDatabaseName("ix_penalty_session_entry");
+
+                    b.ToTable("penalty", "race");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Results.PitStop", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at_utc");
+
+                    b.Property<bool>("DriverChanged")
+                        .HasColumnType("boolean")
+                        .HasColumnName("driver_changed");
+
+                    b.Property<Guid?>("DriverInId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("driver_in_id");
+
+                    b.Property<Guid?>("DriverOutId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("driver_out_id");
+
+                    b.Property<Guid>("EventEntryId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("event_entry_id");
+
+                    b.Property<bool>("IsPenaltyServed")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_penalty_served");
+
+                    b.Property<bool>("IsUnderCaution")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_under_caution");
+
+                    b.Property<int>("LapNumber")
+                        .HasColumnType("integer")
+                        .HasColumnName("lap_number");
+
+                    b.Property<string>("Note")
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("note");
+
+                    b.Property<bool>("RefuelledStop")
+                        .HasColumnType("boolean")
+                        .HasColumnName("refuelled_stop");
+
+                    b.Property<Guid>("SessionId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("session_id");
+
+                    b.Property<int?>("StationaryTimeMs")
+                        .HasColumnType("integer")
+                        .HasColumnName("stationary_time_ms");
+
+                    b.Property<int>("StopNumber")
+                        .HasColumnType("integer")
+                        .HasColumnName("stop_number");
+
+                    b.Property<int?>("TotalPitLaneTimeMs")
+                        .HasColumnType("integer")
+                        .HasColumnName("total_pit_lane_time_ms");
+
+                    b.Property<string>("TyreCompoundFitted")
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)")
+                        .HasColumnName("tyre_compound_fitted");
+
+                    b.HasKey("Id")
+                        .HasName("pk_pit_stop");
+
+                    b.HasIndex("DriverInId")
+                        .HasDatabaseName("ix_pit_stop_driver_in_id");
+
+                    b.HasIndex("DriverOutId")
+                        .HasDatabaseName("ix_pit_stop_driver_out_id");
+
+                    b.HasIndex("EventEntryId")
+                        .HasDatabaseName("ix_pit_stop_event_entry_id");
+
+                    b.HasIndex("SessionId", "LapNumber")
+                        .HasDatabaseName("ix_pit_stop_session_lap");
+
+                    b.HasIndex("SessionId", "StationaryTimeMs")
+                        .HasDatabaseName("ix_pit_stop_session_stationary_time")
+                        .HasFilter("stationary_time_ms is not null");
+
+                    b.HasIndex("SessionId", "EventEntryId", "StopNumber")
+                        .IsUnique()
+                        .HasDatabaseName("ux_pit_stop_session_entry_number");
+
+                    b.ToTable("pit_stop", "race", t =>
+                        {
+                            t.HasCheckConstraint("ck_pit_stop_number_positive", "stop_number >= 1");
+
+                            t.HasCheckConstraint("ck_pit_stop_total_covers_stationary", "total_pit_lane_time_ms is null or stationary_time_ms is null or total_pit_lane_time_ms >= stationary_time_ms");
+                        });
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Results.SessionLap", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at_utc");
+
+                    b.Property<Guid?>("DriverId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("driver_id");
+
+                    b.Property<Guid>("EventEntryId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("event_entry_id");
+
+                    b.Property<bool>("IsDeletedByStewards")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_deleted_by_stewards");
+
+                    b.Property<bool>("IsPersonalBest")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_personal_best");
+
+                    b.Property<bool>("IsPitInLap")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_pit_in_lap");
+
+                    b.Property<bool>("IsPitOutLap")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_pit_out_lap");
+
+                    b.Property<bool>("IsSessionBest")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_session_best");
+
+                    b.Property<bool>("IsUnderCaution")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_under_caution");
+
+                    b.Property<int>("LapNumber")
+                        .HasColumnType("integer")
+                        .HasColumnName("lap_number");
+
+                    b.Property<int?>("LapTimeMs")
+                        .HasColumnType("integer")
+                        .HasColumnName("lap_time_ms");
+
+                    b.Property<int?>("Position")
+                        .HasColumnType("integer")
+                        .HasColumnName("position");
+
+                    b.Property<int?>("Sector1Ms")
+                        .HasColumnType("integer")
+                        .HasColumnName("sector1_ms");
+
+                    b.Property<int?>("Sector2Ms")
+                        .HasColumnType("integer")
+                        .HasColumnName("sector2_ms");
+
+                    b.Property<int?>("Sector3Ms")
+                        .HasColumnType("integer")
+                        .HasColumnName("sector3_ms");
+
+                    b.Property<Guid>("SessionId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("session_id");
+
+                    b.Property<decimal?>("SpeedTrapKph")
+                        .HasPrecision(6, 2)
+                        .HasColumnType("numeric(6,2)")
+                        .HasColumnName("speed_trap_kph");
+
+                    b.Property<int?>("TyreAgeLaps")
+                        .HasColumnType("integer")
+                        .HasColumnName("tyre_age_laps");
+
+                    b.Property<string>("TyreCompound")
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)")
+                        .HasColumnName("tyre_compound");
+
+                    b.HasKey("Id")
+                        .HasName("pk_session_lap");
+
+                    b.HasIndex("EventEntryId")
+                        .HasDatabaseName("ix_session_lap_event_entry_id");
+
+                    b.HasIndex("DriverId", "SessionId")
+                        .HasDatabaseName("ix_session_lap_driver_session")
+                        .HasFilter("driver_id is not null");
+
+                    b.HasIndex("SessionId", "LapNumber")
+                        .HasDatabaseName("ix_session_lap_session_lap_number");
+
+                    b.HasIndex("SessionId", "LapTimeMs")
+                        .HasDatabaseName("ix_session_lap_session_time")
+                        .HasFilter("lap_time_ms is not null and is_deleted_by_stewards = false");
+
+                    b.HasIndex("SessionId", "EventEntryId", "LapNumber")
+                        .IsUnique()
+                        .HasDatabaseName("ux_session_lap_session_entry_lap");
+
+                    b.ToTable("session_lap", "race", t =>
+                        {
+                            t.HasCheckConstraint("ck_session_lap_number_positive", "lap_number >= 1");
+
+                            t.HasCheckConstraint("ck_session_lap_time_positive", "lap_time_ms is null or lap_time_ms > 0");
+                        });
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Results.SessionResult", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<decimal?>("AverageSpeedKph")
+                        .HasPrecision(6, 2)
+                        .HasColumnType("numeric(6,2)")
+                        .HasColumnName("average_speed_kph");
+
+                    b.Property<int?>("BestLapNumber")
+                        .HasColumnType("integer")
+                        .HasColumnName("best_lap_number");
+
+                    b.Property<int?>("BestLapTimeMs")
+                        .HasColumnType("integer")
+                        .HasColumnName("best_lap_time_ms");
+
+                    b.Property<int?>("ClassPosition")
+                        .HasColumnType("integer")
+                        .HasColumnName("class_position");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at_utc");
+
+                    b.Property<Guid?>("CreatedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("created_by_user_id");
+
+                    b.Property<Guid>("EventEntryId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("event_entry_id");
+
+                    b.Property<long?>("GapToAheadMs")
+                        .HasColumnType("bigint")
+                        .HasColumnName("gap_to_ahead_ms");
+
+                    b.Property<int?>("GapToLeaderLaps")
+                        .HasColumnType("integer")
+                        .HasColumnName("gap_to_leader_laps");
+
+                    b.Property<long?>("GapToLeaderMs")
+                        .HasColumnType("bigint")
+                        .HasColumnName("gap_to_leader_ms");
+
+                    b.Property<bool>("IsClassified")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_classified");
+
+                    b.Property<bool>("IsFastestLap")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_fastest_lap");
+
+                    b.Property<bool>("IsPolePosition")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_pole_position");
+
+                    b.Property<int>("LapsCompleted")
+                        .HasColumnType("integer")
+                        .HasColumnName("laps_completed");
+
+                    b.Property<int>("LapsLed")
+                        .HasColumnType("integer")
+                        .HasColumnName("laps_led");
+
+                    b.Property<int>("PenaltyTimeMs")
+                        .HasColumnType("integer")
+                        .HasColumnName("penalty_time_ms");
+
+                    b.Property<int>("PitStopCount")
+                        .HasColumnType("integer")
+                        .HasColumnName("pit_stop_count");
+
+                    b.Property<decimal>("PointsScored")
+                        .HasPrecision(7, 2)
+                        .HasColumnType("numeric(7,2)")
+                        .HasColumnName("points_scored");
+
+                    b.Property<int?>("Position")
+                        .HasColumnType("integer")
+                        .HasColumnName("position");
+
+                    b.Property<Guid>("SessionId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("session_id");
+
+                    b.Property<int?>("StartingPosition")
+                        .HasColumnType("integer")
+                        .HasColumnName("starting_position");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)")
+                        .HasColumnName("status");
+
+                    b.Property<string>("StatusDetail")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("status_detail");
+
+                    b.Property<decimal?>("TopSpeedKph")
+                        .HasPrecision(6, 2)
+                        .HasColumnType("numeric(6,2)")
+                        .HasColumnName("top_speed_kph");
+
+                    b.Property<long?>("TotalTimeMs")
+                        .HasColumnType("bigint")
+                        .HasColumnName("total_time_ms");
+
+                    b.Property<DateTime>("UpdatedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at_utc");
+
+                    b.Property<Guid?>("UpdatedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("updated_by_user_id");
+
+                    b.Property<uint>("Version")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("xid")
+                        .HasColumnName("xmin");
+
+                    b.HasKey("Id")
+                        .HasName("pk_session_result");
+
+                    b.HasIndex("EventEntryId")
+                        .HasDatabaseName("ix_session_result_event_entry");
+
+                    b.HasIndex("SessionId", "EventEntryId")
+                        .IsUnique()
+                        .HasDatabaseName("ux_session_result_session_entry");
+
+                    b.HasIndex("SessionId", "Position")
+                        .IsUnique()
+                        .HasDatabaseName("ux_session_result_session_position")
+                        .HasFilter("position is not null");
+
+                    b.HasIndex("SessionId", "Position", "ClassPosition")
+                        .HasDatabaseName("ix_session_result_session_order");
+
+                    b.HasIndex(new[] { "SessionId" }, "ux_session_result_single_fastest_lap")
+                        .IsUnique()
+                        .HasDatabaseName("ux_session_result_single_fastest_lap")
+                        .HasFilter("is_fastest_lap = true");
+
+                    b.HasIndex(new[] { "SessionId" }, "ux_session_result_single_pole")
+                        .IsUnique()
+                        .HasDatabaseName("ux_session_result_single_pole")
+                        .HasFilter("is_pole_position = true");
+
+                    b.ToTable("session_result", "race", t =>
+                        {
+                            t.HasCheckConstraint("ck_session_result_laps_led_within_completed", "laps_led <= laps_completed");
+
+                            t.HasCheckConstraint("ck_session_result_laps_not_negative", "laps_completed >= 0 and laps_led >= 0");
+
+                            t.HasCheckConstraint("ck_session_result_position_positive", "position is null or position >= 1");
+                        });
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Results.SessionResultDriver", b =>
+                {
+                    b.Property<Guid>("SessionResultId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("session_result_id");
+
+                    b.Property<Guid>("DriverId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("driver_id");
+
+                    b.Property<int?>("BestLapTimeMs")
+                        .HasColumnType("integer")
+                        .HasColumnName("best_lap_time_ms");
+
+                    b.Property<bool>("IsEligibleForPoints")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_eligible_for_points");
+
+                    b.Property<int>("LapsDriven")
+                        .HasColumnType("integer")
+                        .HasColumnName("laps_driven");
+
+                    b.Property<decimal>("PointsScored")
+                        .HasPrecision(7, 2)
+                        .HasColumnType("numeric(7,2)")
+                        .HasColumnName("points_scored");
+
+                    b.Property<bool>("SetBestLap")
+                        .HasColumnType("boolean")
+                        .HasColumnName("set_best_lap");
+
+                    b.Property<long?>("TimeDrivenMs")
+                        .HasColumnType("bigint")
+                        .HasColumnName("time_driven_ms");
+
+                    b.HasKey("SessionResultId", "DriverId")
+                        .HasName("pk_session_result_driver");
+
+                    b.HasIndex("DriverId", "PointsScored")
+                        .HasDatabaseName("ix_session_result_driver_driver_points");
+
+                    b.ToTable("session_result_driver", "race", t =>
+                        {
+                            t.HasCheckConstraint("ck_session_result_driver_laps_not_negative", "laps_driven >= 0");
+                        });
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Standings.DriverStanding", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<Guid?>("AfterEventId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("after_event_id");
+
+                    b.Property<Guid>("DriverId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("driver_id");
+
+                    b.Property<int>("FastestLaps")
+                        .HasColumnType("integer")
+                        .HasColumnName("fastest_laps");
+
+                    b.Property<int>("Podiums")
+                        .HasColumnType("integer")
+                        .HasColumnName("podiums");
+
+                    b.Property<decimal>("Points")
+                        .HasPrecision(8, 2)
+                        .HasColumnType("numeric(8,2)")
+                        .HasColumnName("points");
+
+                    b.Property<decimal>("PointsBeforeDrops")
+                        .HasPrecision(8, 2)
+                        .HasColumnType("numeric(8,2)")
+                        .HasColumnName("points_before_drops");
+
+                    b.Property<int>("PolePositions")
+                        .HasColumnType("integer")
+                        .HasColumnName("pole_positions");
+
+                    b.Property<int>("Position")
+                        .HasColumnType("integer")
+                        .HasColumnName("position");
+
+                    b.Property<int?>("PreviousPosition")
+                        .HasColumnType("integer")
+                        .HasColumnName("previous_position");
+
+                    b.Property<DateTime>("RecalculatedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("recalculated_at_utc");
+
+                    b.Property<int>("Retirements")
+                        .HasColumnType("integer")
+                        .HasColumnName("retirements");
+
+                    b.Property<Guid>("SeasonId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("season_id");
+
+                    b.Property<int>("Starts")
+                        .HasColumnType("integer")
+                        .HasColumnName("starts");
+
+                    b.Property<Guid?>("VehicleClassId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("vehicle_class_id");
+
+                    b.Property<int>("Wins")
+                        .HasColumnType("integer")
+                        .HasColumnName("wins");
+
+                    b.HasKey("Id")
+                        .HasName("pk_driver_standing");
+
+                    b.HasIndex("AfterEventId")
+                        .HasDatabaseName("ix_driver_standing_after_event_id");
+
+                    b.HasIndex("VehicleClassId")
+                        .HasDatabaseName("ix_driver_standing_vehicle_class_id");
+
+                    b.HasIndex("DriverId", "SeasonId")
+                        .HasDatabaseName("ix_driver_standing_driver_season");
+
+                    b.HasIndex("SeasonId", "Position")
+                        .HasDatabaseName("ix_driver_standing_current_by_position")
+                        .HasFilter("after_event_id is null");
+
+                    b.HasIndex("SeasonId", "DriverId", "VehicleClassId", "AfterEventId")
+                        .IsUnique()
+                        .HasDatabaseName("ux_driver_standing_season_driver_class_event");
+
+                    b.ToTable("driver_standing", "race");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Standings.TeamStanding", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<Guid?>("AfterEventId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("after_event_id");
+
+                    b.Property<int>("FastestLaps")
+                        .HasColumnType("integer")
+                        .HasColumnName("fastest_laps");
+
+                    b.Property<int>("Podiums")
+                        .HasColumnType("integer")
+                        .HasColumnName("podiums");
+
+                    b.Property<decimal>("Points")
+                        .HasPrecision(8, 2)
+                        .HasColumnType("numeric(8,2)")
+                        .HasColumnName("points");
+
+                    b.Property<decimal>("PointsBeforeDrops")
+                        .HasPrecision(8, 2)
+                        .HasColumnType("numeric(8,2)")
+                        .HasColumnName("points_before_drops");
+
+                    b.Property<int>("PolePositions")
+                        .HasColumnType("integer")
+                        .HasColumnName("pole_positions");
+
+                    b.Property<int>("Position")
+                        .HasColumnType("integer")
+                        .HasColumnName("position");
+
+                    b.Property<int?>("PreviousPosition")
+                        .HasColumnType("integer")
+                        .HasColumnName("previous_position");
+
+                    b.Property<DateTime>("RecalculatedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("recalculated_at_utc");
+
+                    b.Property<Guid>("SeasonId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("season_id");
+
+                    b.Property<int>("Starts")
+                        .HasColumnType("integer")
+                        .HasColumnName("starts");
+
+                    b.Property<Guid>("TeamId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("team_id");
+
+                    b.Property<Guid?>("VehicleClassId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("vehicle_class_id");
+
+                    b.Property<int>("Wins")
+                        .HasColumnType("integer")
+                        .HasColumnName("wins");
+
+                    b.HasKey("Id")
+                        .HasName("pk_team_standing");
+
+                    b.HasIndex("AfterEventId")
+                        .HasDatabaseName("ix_team_standing_after_event_id");
+
+                    b.HasIndex("TeamId")
+                        .HasDatabaseName("ix_team_standing_team_id");
+
+                    b.HasIndex("VehicleClassId")
+                        .HasDatabaseName("ix_team_standing_vehicle_class_id");
+
+                    b.HasIndex("SeasonId", "Position")
+                        .HasDatabaseName("ix_team_standing_current_by_position")
+                        .HasFilter("after_event_id is null");
+
+                    b.HasIndex("SeasonId", "TeamId", "VehicleClassId", "AfterEventId")
+                        .IsUnique()
+                        .HasDatabaseName("ux_team_standing_season_team_class_event");
+
+                    b.ToTable("team_standing", "race");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Venues.LapRecord", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at_utc");
+
+                    b.Property<Guid?>("CreatedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("created_by_user_id");
+
+                    b.Property<Guid?>("DriverId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("driver_id");
+
+                    b.Property<bool>("IsCurrent")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_current");
+
+                    b.Property<int>("LapTimeMs")
+                        .HasColumnType("integer")
+                        .HasColumnName("lap_time_ms");
+
+                    b.Property<string>("RecordType")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)")
+                        .HasColumnName("record_type");
+
+                    b.Property<Guid?>("SeriesId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("series_id");
+
+                    b.Property<Guid?>("SessionId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("session_id");
+
+                    b.Property<DateOnly>("SetOn")
+                        .HasColumnType("date")
+                        .HasColumnName("set_on");
+
+                    b.Property<Guid?>("TeamId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("team_id");
+
+                    b.Property<Guid>("TrackLayoutId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("track_layout_id");
+
+                    b.Property<DateTime>("UpdatedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at_utc");
+
+                    b.Property<Guid?>("UpdatedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("updated_by_user_id");
+
+                    b.Property<Guid?>("VehicleClassId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("vehicle_class_id");
+
+                    b.Property<string>("VehicleDescription")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("vehicle_description");
+
+                    b.HasKey("Id")
+                        .HasName("pk_lap_record");
+
+                    b.HasIndex("DriverId")
+                        .HasDatabaseName("ix_lap_record_driver_id");
+
+                    b.HasIndex("SeriesId")
+                        .HasDatabaseName("ix_lap_record_series_id");
+
+                    b.HasIndex("SessionId")
+                        .HasDatabaseName("ix_lap_record_session_id");
+
+                    b.HasIndex("TeamId")
+                        .HasDatabaseName("ix_lap_record_team_id");
+
+                    b.HasIndex("VehicleClassId")
+                        .HasDatabaseName("ix_lap_record_vehicle_class_id");
+
+                    b.HasIndex("TrackLayoutId", "RecordType", "IsCurrent")
+                        .HasDatabaseName("ix_lap_record_layout_type_current");
+
+                    b.HasIndex("TrackLayoutId", "SeriesId", "RecordType", "LapTimeMs")
+                        .HasDatabaseName("ix_lap_record_layout_series_type_time");
+
+                    b.ToTable("lap_record", "race", t =>
+                        {
+                            t.HasCheckConstraint("ck_lap_record_time_positive", "lap_time_ms > 0");
+                        });
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Venues.Track", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("City")
+                        .HasMaxLength(120)
+                        .HasColumnType("character varying(120)")
+                        .HasColumnName("city");
 
                     b.Property<string>("Country")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("country");
+
+                    b.Property<string>("CountryCode")
+                        .HasMaxLength(3)
+                        .HasColumnType("character(3)")
+                        .HasColumnName("country_code")
+                        .IsFixedLength();
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at_utc");
+
+                    b.Property<Guid?>("CreatedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("created_by_user_id");
+
+                    b.Property<DateTime?>("DeletedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("deleted_at_utc");
+
+                    b.Property<Guid?>("DeletedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("deleted_by_user_id");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(4000)
+                        .HasColumnType("character varying(4000)")
+                        .HasColumnName("description");
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasMaxLength(1000)
-                        .HasColumnType("character varying(1000)");
+                        .HasColumnType("character varying(1000)")
+                        .HasColumnName("image_url");
 
-                    b.Property<decimal>("LengthInKm")
-                        .HasPrecision(6, 3)
-                        .HasColumnType("numeric(6,3)");
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_active");
 
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_deleted");
+
+                    b.Property<double?>("Latitude")
+                        .HasColumnType("double precision")
+                        .HasColumnName("latitude");
+
+                    b.Property<double?>("Longitude")
+                        .HasColumnType("double precision")
+                        .HasColumnName("longitude");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("name");
 
-                    b.Property<string>("TimeZone")
+                    b.Property<string>("OfficialName")
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)")
+                        .HasColumnName("official_name");
+
+                    b.Property<int?>("OpenedYear")
+                        .HasColumnType("integer")
+                        .HasColumnName("opened_year");
+
+                    b.Property<string>("Slug")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)")
+                        .HasColumnName("slug");
 
-                    b.HasKey("Id");
+                    b.Property<string>("TimeZoneId")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(80)
+                        .HasColumnType("character varying(80)")
+                        .HasDefaultValue("UTC")
+                        .HasColumnName("time_zone_id");
 
-                    b.ToTable("Track", (string)null);
+                    b.Property<DateTime>("UpdatedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at_utc");
+
+                    b.Property<Guid?>("UpdatedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("updated_by_user_id");
+
+                    b.Property<string>("WebsiteUrl")
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)")
+                        .HasColumnName("website_url");
+
+                    b.HasKey("Id")
+                        .HasName("pk_track");
+
+                    b.HasIndex("Slug")
+                        .IsUnique()
+                        .HasDatabaseName("ux_track_slug")
+                        .HasFilter("is_deleted = false");
+
+                    b.HasIndex("Country", "Name")
+                        .HasDatabaseName("ix_track_country_name")
+                        .HasFilter("is_deleted = false");
+
+                    b.ToTable("track", "race", t =>
+                        {
+                            t.HasCheckConstraint("ck_track_latitude_range", "latitude is null or (latitude between -90 and 90)");
+
+                            t.HasCheckConstraint("ck_track_longitude_range", "longitude is null or (longitude between -180 and 180)");
+                        });
                 });
 
-            modelBuilder.Entity("RaceService.Application.Domain.Entities.PastResult", b =>
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Venues.TrackLayout", b =>
                 {
-                    b.HasOne("RaceService.Application.Domain.Entities.Race", "Race")
-                        .WithMany("PastResults")
-                        .HasForeignKey("RaceId")
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at_utc");
+
+                    b.Property<Guid?>("CreatedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("created_by_user_id");
+
+                    b.Property<string>("Direction")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)")
+                        .HasColumnName("direction");
+
+                    b.Property<int?>("ElevationChangeMeters")
+                        .HasColumnType("integer")
+                        .HasColumnName("elevation_change_meters");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_active");
+
+                    b.Property<bool>("IsCurrent")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_current");
+
+                    b.Property<int>("LengthMeters")
+                        .HasColumnType("integer")
+                        .HasColumnName("length_meters");
+
+                    b.Property<int?>("LongestStraightMeters")
+                        .HasColumnType("integer")
+                        .HasColumnName("longest_straight_meters");
+
+                    b.Property<string>("MapImageUrl")
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)")
+                        .HasColumnName("map_image_url");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)")
+                        .HasColumnName("name");
+
+                    b.Property<int?>("NumberOfTurns")
+                        .HasColumnType("integer")
+                        .HasColumnName("number_of_turns");
+
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)")
+                        .HasColumnName("slug");
+
+                    b.Property<Guid>("TrackId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("track_id");
+
+                    b.Property<string>("TrackType")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)")
+                        .HasColumnName("track_type");
+
+                    b.Property<DateTime>("UpdatedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at_utc");
+
+                    b.Property<Guid?>("UpdatedByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("updated_by_user_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_track_layout");
+
+                    b.HasIndex("TrackId")
+                        .IsUnique()
+                        .HasDatabaseName("ux_track_layout_single_current")
+                        .HasFilter("is_current = true");
+
+                    b.HasIndex("TrackId", "Slug")
+                        .IsUnique()
+                        .HasDatabaseName("ux_track_layout_track_slug");
+
+                    b.ToTable("track_layout", "race", t =>
+                        {
+                            t.HasCheckConstraint("ck_track_layout_length_positive", "length_meters > 0");
+                        });
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Catalog.PointsScheme", b =>
+                {
+                    b.HasOne("RaceService.Application.Domain.Entities.Catalog.Season", "Season")
+                        .WithMany("PointsSchemes")
+                        .HasForeignKey("SeasonId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_points_scheme_season_season_id");
 
-                    b.Navigation("Race");
+                    b.Navigation("Season");
                 });
 
-            modelBuilder.Entity("RaceService.Application.Domain.Entities.Race", b =>
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Catalog.PointsSchemeEntry", b =>
                 {
-                    b.HasOne("RaceService.Application.Domain.Entities.Track", "Track")
-                        .WithMany("Races")
-                        .HasForeignKey("TrackId")
+                    b.HasOne("RaceService.Application.Domain.Entities.Catalog.PointsScheme", "PointsScheme")
+                        .WithMany("Entries")
+                        .HasForeignKey("PointsSchemeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_points_scheme_entry_points_scheme_points_scheme_id");
+
+                    b.Navigation("PointsScheme");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Catalog.Season", b =>
+                {
+                    b.HasOne("RaceService.Application.Domain.Entities.Catalog.Series", "Series")
+                        .WithMany("Seasons")
+                        .HasForeignKey("SeriesId")
                         .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_season_series_series_id");
+
+                    b.Navigation("Series");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Catalog.VehicleClass", b =>
+                {
+                    b.HasOne("RaceService.Application.Domain.Entities.Catalog.Series", "Series")
+                        .WithMany("VehicleClasses")
+                        .HasForeignKey("SeriesId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .HasConstraintName("fk_vehicle_class_series_series_id");
+
+                    b.Navigation("Series");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Competitors.DriverCareerStat", b =>
+                {
+                    b.HasOne("RaceService.Application.Domain.Entities.Competitors.Driver", "Driver")
+                        .WithMany("CareerStats")
+                        .HasForeignKey("DriverId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_driver_career_stat_driver_driver_id");
+
+                    b.HasOne("RaceService.Application.Domain.Entities.Catalog.Series", "Series")
+                        .WithMany("DriverCareerStats")
+                        .HasForeignKey("SeriesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasConstraintName("fk_driver_career_stat_series_series_id");
+
+                    b.Navigation("Driver");
+
+                    b.Navigation("Series");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Competitors.Entry", b =>
+                {
+                    b.HasOne("RaceService.Application.Domain.Entities.Catalog.Manufacturer", "ChassisManufacturer")
+                        .WithMany()
+                        .HasForeignKey("ChassisManufacturerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .HasConstraintName("fk_entry_manufacturer_chassis_manufacturer_id");
+
+                    b.HasOne("RaceService.Application.Domain.Entities.Catalog.Manufacturer", "EngineManufacturer")
+                        .WithMany()
+                        .HasForeignKey("EngineManufacturerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .HasConstraintName("fk_entry_manufacturer_engine_manufacturer_id");
+
+                    b.HasOne("RaceService.Application.Domain.Entities.Catalog.Season", "Season")
+                        .WithMany("Entries")
+                        .HasForeignKey("SeasonId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_entry_season_season_id");
+
+                    b.HasOne("RaceService.Application.Domain.Entities.Competitors.Team", "Team")
+                        .WithMany("Entries")
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_entry_team_team_id");
+
+                    b.HasOne("RaceService.Application.Domain.Entities.Catalog.Manufacturer", "TyreSupplier")
+                        .WithMany()
+                        .HasForeignKey("TyreSupplierId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .HasConstraintName("fk_entry_manufacturer_tyre_supplier_id");
+
+                    b.HasOne("RaceService.Application.Domain.Entities.Catalog.VehicleClass", "VehicleClass")
+                        .WithMany("Entries")
+                        .HasForeignKey("VehicleClassId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .HasConstraintName("fk_entry_vehicle_class_vehicle_class_id");
+
+                    b.Navigation("ChassisManufacturer");
+
+                    b.Navigation("EngineManufacturer");
+
+                    b.Navigation("Season");
+
+                    b.Navigation("Team");
+
+                    b.Navigation("TyreSupplier");
+
+                    b.Navigation("VehicleClass");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Competitors.EventEntry", b =>
+                {
+                    b.HasOne("RaceService.Application.Domain.Entities.Competitors.Entry", "Entry")
+                        .WithMany("EventEntries")
+                        .HasForeignKey("EntryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_event_entry_entry_entry_id");
+
+                    b.HasOne("RaceService.Application.Domain.Entities.Events.RaceEvent", "RaceEvent")
+                        .WithMany("Entries")
+                        .HasForeignKey("RaceEventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_event_entry_race_event_race_event_id");
+
+                    b.Navigation("Entry");
+
+                    b.Navigation("RaceEvent");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Competitors.EventEntryDriver", b =>
+                {
+                    b.HasOne("RaceService.Application.Domain.Entities.Competitors.Driver", "Driver")
+                        .WithMany("EventEntries")
+                        .HasForeignKey("DriverId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_event_entry_driver_driver_driver_id");
+
+                    b.HasOne("RaceService.Application.Domain.Entities.Competitors.EventEntry", "EventEntry")
+                        .WithMany("Drivers")
+                        .HasForeignKey("EventEntryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_event_entry_driver_event_entry_event_entry_id");
+
+                    b.Navigation("Driver");
+
+                    b.Navigation("EventEntry");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Events.RaceEvent", b =>
+                {
+                    b.HasOne("RaceService.Application.Domain.Entities.Events.RaceEvent", "PreviousEdition")
+                        .WithMany()
+                        .HasForeignKey("PreviousEditionId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .HasConstraintName("fk_race_event_race_event_previous_edition_id");
+
+                    b.HasOne("RaceService.Application.Domain.Entities.Catalog.Season", "Season")
+                        .WithMany("Events")
+                        .HasForeignKey("SeasonId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_race_event_season_season_id");
+
+                    b.HasOne("RaceService.Application.Domain.Entities.Venues.TrackLayout", "TrackLayout")
+                        .WithMany("Events")
+                        .HasForeignKey("TrackLayoutId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_race_event_track_layout_track_layout_id");
+
+                    b.Navigation("PreviousEdition");
+
+                    b.Navigation("Season");
+
+                    b.Navigation("TrackLayout");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Events.Session", b =>
+                {
+                    b.HasOne("RaceService.Application.Domain.Entities.Events.RaceEvent", "RaceEvent")
+                        .WithMany("Sessions")
+                        .HasForeignKey("RaceEventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_session_race_event_race_event_id");
+
+                    b.Navigation("RaceEvent");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Results.Penalty", b =>
+                {
+                    b.HasOne("RaceService.Application.Domain.Entities.Events.Session", "AppliedToSession")
+                        .WithMany()
+                        .HasForeignKey("AppliedToSessionId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .HasConstraintName("fk_penalty_session_applied_to_session_id");
+
+                    b.HasOne("RaceService.Application.Domain.Entities.Competitors.Driver", "Driver")
+                        .WithMany()
+                        .HasForeignKey("DriverId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .HasConstraintName("fk_penalty_driver_driver_id");
+
+                    b.HasOne("RaceService.Application.Domain.Entities.Competitors.EventEntry", "EventEntry")
+                        .WithMany()
+                        .HasForeignKey("EventEntryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_penalty_event_entry_event_entry_id");
+
+                    b.HasOne("RaceService.Application.Domain.Entities.Events.Session", "Session")
+                        .WithMany("Penalties")
+                        .HasForeignKey("SessionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_penalty_session_session_id");
+
+                    b.Navigation("AppliedToSession");
+
+                    b.Navigation("Driver");
+
+                    b.Navigation("EventEntry");
+
+                    b.Navigation("Session");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Results.PitStop", b =>
+                {
+                    b.HasOne("RaceService.Application.Domain.Entities.Competitors.Driver", "DriverIn")
+                        .WithMany()
+                        .HasForeignKey("DriverInId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .HasConstraintName("fk_pit_stop_driver_driver_in_id");
+
+                    b.HasOne("RaceService.Application.Domain.Entities.Competitors.Driver", "DriverOut")
+                        .WithMany()
+                        .HasForeignKey("DriverOutId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .HasConstraintName("fk_pit_stop_driver_driver_out_id");
+
+                    b.HasOne("RaceService.Application.Domain.Entities.Competitors.EventEntry", "EventEntry")
+                        .WithMany()
+                        .HasForeignKey("EventEntryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_pit_stop_event_entry_event_entry_id");
+
+                    b.HasOne("RaceService.Application.Domain.Entities.Events.Session", "Session")
+                        .WithMany("PitStops")
+                        .HasForeignKey("SessionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_pit_stop_session_session_id");
+
+                    b.Navigation("DriverIn");
+
+                    b.Navigation("DriverOut");
+
+                    b.Navigation("EventEntry");
+
+                    b.Navigation("Session");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Results.SessionLap", b =>
+                {
+                    b.HasOne("RaceService.Application.Domain.Entities.Competitors.Driver", "Driver")
+                        .WithMany()
+                        .HasForeignKey("DriverId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .HasConstraintName("fk_session_lap_driver_driver_id");
+
+                    b.HasOne("RaceService.Application.Domain.Entities.Competitors.EventEntry", "EventEntry")
+                        .WithMany()
+                        .HasForeignKey("EventEntryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_session_lap_event_entry_event_entry_id");
+
+                    b.HasOne("RaceService.Application.Domain.Entities.Events.Session", "Session")
+                        .WithMany("Laps")
+                        .HasForeignKey("SessionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_session_lap_session_session_id");
+
+                    b.Navigation("Driver");
+
+                    b.Navigation("EventEntry");
+
+                    b.Navigation("Session");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Results.SessionResult", b =>
+                {
+                    b.HasOne("RaceService.Application.Domain.Entities.Competitors.EventEntry", "EventEntry")
+                        .WithMany("SessionResults")
+                        .HasForeignKey("EventEntryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_session_result_event_entry_event_entry_id");
+
+                    b.HasOne("RaceService.Application.Domain.Entities.Events.Session", "Session")
+                        .WithMany("Results")
+                        .HasForeignKey("SessionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_session_result_session_session_id");
+
+                    b.Navigation("EventEntry");
+
+                    b.Navigation("Session");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Results.SessionResultDriver", b =>
+                {
+                    b.HasOne("RaceService.Application.Domain.Entities.Competitors.Driver", "Driver")
+                        .WithMany("SessionResults")
+                        .HasForeignKey("DriverId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_session_result_driver_driver_driver_id");
+
+                    b.HasOne("RaceService.Application.Domain.Entities.Results.SessionResult", "SessionResult")
+                        .WithMany("Drivers")
+                        .HasForeignKey("SessionResultId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_session_result_driver_session_result_session_result_id");
+
+                    b.Navigation("Driver");
+
+                    b.Navigation("SessionResult");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Standings.DriverStanding", b =>
+                {
+                    b.HasOne("RaceService.Application.Domain.Entities.Events.RaceEvent", "AfterEvent")
+                        .WithMany()
+                        .HasForeignKey("AfterEventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasConstraintName("fk_driver_standing_race_event_after_event_id");
+
+                    b.HasOne("RaceService.Application.Domain.Entities.Competitors.Driver", "Driver")
+                        .WithMany()
+                        .HasForeignKey("DriverId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_driver_standing_driver_driver_id");
+
+                    b.HasOne("RaceService.Application.Domain.Entities.Catalog.Season", "Season")
+                        .WithMany("DriverStandings")
+                        .HasForeignKey("SeasonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_driver_standing_season_season_id");
+
+                    b.HasOne("RaceService.Application.Domain.Entities.Catalog.VehicleClass", "VehicleClass")
+                        .WithMany("DriverStandings")
+                        .HasForeignKey("VehicleClassId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .HasConstraintName("fk_driver_standing_vehicle_class_vehicle_class_id");
+
+                    b.Navigation("AfterEvent");
+
+                    b.Navigation("Driver");
+
+                    b.Navigation("Season");
+
+                    b.Navigation("VehicleClass");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Standings.TeamStanding", b =>
+                {
+                    b.HasOne("RaceService.Application.Domain.Entities.Events.RaceEvent", "AfterEvent")
+                        .WithMany()
+                        .HasForeignKey("AfterEventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasConstraintName("fk_team_standing_race_event_after_event_id");
+
+                    b.HasOne("RaceService.Application.Domain.Entities.Catalog.Season", "Season")
+                        .WithMany("TeamStandings")
+                        .HasForeignKey("SeasonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_team_standing_season_season_id");
+
+                    b.HasOne("RaceService.Application.Domain.Entities.Competitors.Team", "Team")
+                        .WithMany("Standings")
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_team_standing_team_team_id");
+
+                    b.HasOne("RaceService.Application.Domain.Entities.Catalog.VehicleClass", "VehicleClass")
+                        .WithMany("TeamStandings")
+                        .HasForeignKey("VehicleClassId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .HasConstraintName("fk_team_standing_vehicle_class_vehicle_class_id");
+
+                    b.Navigation("AfterEvent");
+
+                    b.Navigation("Season");
+
+                    b.Navigation("Team");
+
+                    b.Navigation("VehicleClass");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Venues.LapRecord", b =>
+                {
+                    b.HasOne("RaceService.Application.Domain.Entities.Competitors.Driver", "Driver")
+                        .WithMany()
+                        .HasForeignKey("DriverId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .HasConstraintName("fk_lap_record_driver_driver_id");
+
+                    b.HasOne("RaceService.Application.Domain.Entities.Catalog.Series", "Series")
+                        .WithMany()
+                        .HasForeignKey("SeriesId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .HasConstraintName("fk_lap_record_series_series_id");
+
+                    b.HasOne("RaceService.Application.Domain.Entities.Events.Session", "Session")
+                        .WithMany()
+                        .HasForeignKey("SessionId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .HasConstraintName("fk_lap_record_session_session_id");
+
+                    b.HasOne("RaceService.Application.Domain.Entities.Competitors.Team", "Team")
+                        .WithMany()
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .HasConstraintName("fk_lap_record_team_team_id");
+
+                    b.HasOne("RaceService.Application.Domain.Entities.Venues.TrackLayout", "TrackLayout")
+                        .WithMany("LapRecords")
+                        .HasForeignKey("TrackLayoutId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_lap_record_track_layout_track_layout_id");
+
+                    b.HasOne("RaceService.Application.Domain.Entities.Catalog.VehicleClass", "VehicleClass")
+                        .WithMany()
+                        .HasForeignKey("VehicleClassId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .HasConstraintName("fk_lap_record_vehicle_class_vehicle_class_id");
+
+                    b.Navigation("Driver");
+
+                    b.Navigation("Series");
+
+                    b.Navigation("Session");
+
+                    b.Navigation("Team");
+
+                    b.Navigation("TrackLayout");
+
+                    b.Navigation("VehicleClass");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Venues.TrackLayout", b =>
+                {
+                    b.HasOne("RaceService.Application.Domain.Entities.Venues.Track", "Track")
+                        .WithMany("Layouts")
+                        .HasForeignKey("TrackId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_track_layout_track_track_id");
 
                     b.Navigation("Track");
                 });
 
-            modelBuilder.Entity("RaceService.Application.Domain.Entities.RaceEntry", b =>
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Catalog.PointsScheme", b =>
                 {
-                    b.HasOne("RaceService.Application.Domain.Entities.Race", "Race")
-                        .WithMany("Entries")
-                        .HasForeignKey("RaceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Race");
+                    b.Navigation("Entries");
                 });
 
-            modelBuilder.Entity("RaceService.Application.Domain.Entities.RaceEntryDriver", b =>
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Catalog.Season", b =>
                 {
-                    b.HasOne("RaceService.Application.Domain.Entities.Driver", "Driver")
-                        .WithMany("RaceEntryDrivers")
-                        .HasForeignKey("DriverId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                    b.Navigation("DriverStandings");
 
-                    b.HasOne("RaceService.Application.Domain.Entities.RaceEntry", "RaceEntry")
-                        .WithMany("Drivers")
-                        .HasForeignKey("RaceEntryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Entries");
 
-                    b.Navigation("Driver");
+                    b.Navigation("Events");
 
-                    b.Navigation("RaceEntry");
+                    b.Navigation("PointsSchemes");
+
+                    b.Navigation("TeamStandings");
                 });
 
-            modelBuilder.Entity("RaceService.Application.Domain.Entities.RaceResult", b =>
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Catalog.Series", b =>
                 {
-                    b.HasOne("RaceService.Application.Domain.Entities.Driver", "Driver")
-                        .WithMany()
-                        .HasForeignKey("DriverId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                    b.Navigation("DriverCareerStats");
 
-                    b.HasOne("RaceService.Application.Domain.Entities.PastResult", "PastResult")
-                        .WithMany("RaceResults")
-                        .HasForeignKey("PastResultId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Seasons");
 
-                    b.HasOne("RaceService.Application.Domain.Entities.RaceEntry", "RaceEntry")
-                        .WithMany("Results")
-                        .HasForeignKey("RaceEntryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Driver");
-
-                    b.Navigation("PastResult");
-
-                    b.Navigation("RaceEntry");
+                    b.Navigation("VehicleClasses");
                 });
 
-            modelBuilder.Entity("RaceService.Application.Domain.Entities.Driver", b =>
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Catalog.VehicleClass", b =>
                 {
-                    b.Navigation("RaceEntryDrivers");
+                    b.Navigation("DriverStandings");
+
+                    b.Navigation("Entries");
+
+                    b.Navigation("TeamStandings");
                 });
 
-            modelBuilder.Entity("RaceService.Application.Domain.Entities.PastResult", b =>
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Competitors.Driver", b =>
                 {
-                    b.Navigation("RaceResults");
+                    b.Navigation("CareerStats");
+
+                    b.Navigation("EventEntries");
+
+                    b.Navigation("SessionResults");
                 });
 
-            modelBuilder.Entity("RaceService.Application.Domain.Entities.Race", b =>
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Competitors.Entry", b =>
+                {
+                    b.Navigation("EventEntries");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Competitors.EventEntry", b =>
+                {
+                    b.Navigation("Drivers");
+
+                    b.Navigation("SessionResults");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Competitors.Team", b =>
                 {
                     b.Navigation("Entries");
 
-                    b.Navigation("PastResults");
+                    b.Navigation("Standings");
                 });
 
-            modelBuilder.Entity("RaceService.Application.Domain.Entities.RaceEntry", b =>
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Events.RaceEvent", b =>
                 {
-                    b.Navigation("Drivers");
+                    b.Navigation("Entries");
+
+                    b.Navigation("Sessions");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Events.Session", b =>
+                {
+                    b.Navigation("Laps");
+
+                    b.Navigation("Penalties");
+
+                    b.Navigation("PitStops");
 
                     b.Navigation("Results");
                 });
 
-            modelBuilder.Entity("RaceService.Application.Domain.Entities.Track", b =>
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Results.SessionResult", b =>
                 {
-                    b.Navigation("Races");
+                    b.Navigation("Drivers");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Venues.Track", b =>
+                {
+                    b.Navigation("Layouts");
+                });
+
+            modelBuilder.Entity("RaceService.Application.Domain.Entities.Venues.TrackLayout", b =>
+                {
+                    b.Navigation("Events");
+
+                    b.Navigation("LapRecords");
                 });
 #pragma warning restore 612, 618
         }
