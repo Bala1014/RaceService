@@ -52,4 +52,4 @@ jobs:
       - name: Build Docker Image
         run: |
           docker build \
-            -t $REGION-docker.pkg.dev/$PROJECT_ID/app-images/$SERVICE:${GITHUB_SHA} .
+            -t $REGION-docker.pkg.dev/$PROJECT_ID/$AR_REPO/$SERVICE:${GITHUB_SHA} .
