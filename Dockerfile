@@ -20,11 +20,7 @@ RUN dotnet publish RaceService.Api/RaceService.Api.csproj \
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
 WORKDIR /app
 
-# Runs as a non-root user. Cloud Run does not require it, but a container that cannot write to
-# its own filesystem is one less thing an exploited dependency can do.
-RUN adduser --disabled-password --gecos "" --uid 64198 raceserviceuser \
-    && chown -R raceservice /app
-USER raceserviceuser
+
 
 COPY --from=build --chown=raceservice /app/publish .
 
