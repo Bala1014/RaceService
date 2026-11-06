@@ -73,8 +73,12 @@ jobs:
         run: |
           URL=${{ steps.prod-url.outputs.url }}
 
+          # The app maps liveness and readiness separately (/health/live, /health/ready) and
+          # has no bare /health route. Readiness is the one a deploy gate should poll: it also
+          # checks the database, so this fails fast if migrations haven't finished yet instead
+          # of reporting healthy on a container that can't actually serve a request.
           for i in {1..20}; do
-            STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$URL/health")
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$URL/health/ready")
 
             if [ "$STATUS" = "200" ]; then
               echo "Production deployment healthy"
